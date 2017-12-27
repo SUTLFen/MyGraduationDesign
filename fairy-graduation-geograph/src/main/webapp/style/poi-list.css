@@ -1,0 +1,6 @@
+ul.poi-list{
+    list-style: none;
+    /*height: 100%;*/
+    max-height: 300px;
+    overflow: auto;
+}

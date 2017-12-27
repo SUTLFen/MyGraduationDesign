@@ -1,0 +1,11 @@
+.title{
+    padding:5px 20px;
+    text-align: left;
+    border-radius: 6px;
+    margin: 3px 2px 0 2px;
+    background: lightgrey;
+}
+
+.title_v2{
+    /*margin-bottom: 58px;*/
+}

@@ -1,0 +1,97 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+html, body, #map {
+    height: 100%;
+    /*new added*/
+    width: 100%;
+}
+/*.svg{*/
+    /*position: relative;*/
+/*}*/
+.circle{
+    fill: black;
+}
+.svg{
+    width : 100%;
+    height: 100%;
+    font: 10px sans-serif;
+    /*background: red;*/
+}
+.polyline {
+    fill: none;
+    stroke: black;
+    stroke-width: 0.8;
+    clip-path: url(#clip);
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+.axis text{
+    font-family : sans-serif;
+    /*color: #051;*/
+}
+
+.brush .extent {
+    stroke: #fff;
+    fill-opacity: .125;
+    shape-rendering: crispEdges;
+}
+
+.timeSvgBox {
+    margin: 0.5%;
+    background: white;
+    opacity: 0.8;
+    box-shadow: 0 0 10px #888888;
+    font-size: 10px;
+}
+.overlayRect {
+    fill: none;
+    pointer-events: all;
+}
+
+.focusLine {
+    stroke: black;
+    stroke-width: 1px;
+    stroke-dasharray: 5,5;
+}
+
+.left-container{
+    /*width: 85%;*/
+    width:85%;
+    height: 100%;
+    float: left;
+}
+/*.right-container{*/
+    /*width:15%;*/
+    /*height:100%;*/
+    /*float: left;*/
+/*}*/
+#map{
+  width: 100%;
+    /*height:80%;*/
+    height: 80%;
+    float: left;
+}
+/*.time-box{*/
+    /*width: 100%;*/
+    /*height: 20%;*/
+    /*float: left;*/
+    /*font: 10px sans-serif;*/
+/*}*/
+
+.mapSvg{
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+.quadtree-rect{
+    z-index: 9999;
+    opacity: 0.7;
+}

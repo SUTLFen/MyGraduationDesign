@@ -26,21 +26,21 @@ public class FileUtil {
      * @param content : 写入内容
      * @param b : 是否追加在文件末尾
      * */
-    public void saveToFile(String filePath, String content, boolean b) {
-        try{
-            File file = new File(filePath);
-            if(!file.exists()){
-                file.createNewFile();
-            }
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, b)));
-            bw.append(content);
-            bw.flush();
-            bw.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void saveToFile(String filePath, String content, boolean b) {try{
+        File file = new File(filePath);
+        if(!file.exists()){
+            file.createNewFile();
         }
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, b)));
+        bw.append(content);
+        bw.flush();
+        bw.close();
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
     }
 
     public BufferedReader getBufferedReader(File file, String decodeType){

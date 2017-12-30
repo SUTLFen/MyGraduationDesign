@@ -7,7 +7,7 @@ function initMapWithGaode() {
 
     map = L.map("map",{
         center:[30.3, 120.2],
-        zoom: 12,
+        zoom: 11,
         layers:[normal],
         zoomControl:false
     });

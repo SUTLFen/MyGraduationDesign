@@ -88,7 +88,7 @@ d3.json("data/data.json", function(error, _data){
             }
         }
 
-        saveRegins();
+        // saveRegins();
 
         return resultNodes;
     }

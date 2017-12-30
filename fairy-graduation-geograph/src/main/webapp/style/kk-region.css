@@ -1,0 +1,33 @@
+.kk-circle{
+    fill: red;
+    stroke:green;
+}
+
+.point {
+    fill: green;
+    stroke: #fff;
+}
+
+
+.point.scanned {
+    fill: orange;
+    fill-opacity: 1;
+    stroke: brown;
+}
+
+.point.selected {
+    fill: red;
+    fill-opacity: 1;
+}
+
+.node {
+    fill: none;
+    stroke: #ff7115;
+    shape-rendering: crispEdges;
+}
+
+.brush .extent {
+    stroke: #fff;
+    fill-opacity: .125;
+    shape-rendering: crispEdges;
+}

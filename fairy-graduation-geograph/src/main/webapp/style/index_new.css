@@ -22,6 +22,7 @@ html, body, #map {
     opacity: 0.3;
 }
 
+/*上半部分：左右分配*/
 .left-container{
     position: relative;
     float: left;

@@ -3,8 +3,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>MobilityPattern</title>
-    <%@ include file="/WEB-INF/jsp/common_css.jsp"%>
-    <%@ include file="/WEB-INF/jsp/common_js.jsp"%>
+    <%@ include file="WEB-INF/jsp/common_css.jsp"%>
+    <%@ include file="WEB-INF/jsp/common_js.jsp"%>
 
 </head>
 </head>

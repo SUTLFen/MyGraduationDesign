@@ -19,9 +19,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>3.8.1</junit.version>
     <fastjson.version>1.2.7</fastjson.version>
+    <spring.version>4.2.4.RELEASE</spring.version>
+
     <jstl.version>1.2</jstl.version>
-    <servlet-api.version>2.5</servlet-api.version>
     <jsp-api.version>2.0</jsp-api.version>
+    <servlet-api.version>3.1.0</servlet-api.version>
+
     <mapdb.version>2.0-beta13</mapdb.version>
     <spatial4j.version>0.5</spatial4j.version>
     <json-simple.version>RELEASE</json-simple.version>
@@ -38,6 +41,7 @@
     <httpclient.version>4.5.1</httpclient.version>
     <guava.version>18.0</guava.version>
     <spring-boot-starter-logging.version>1.4.0.RELEASE</spring-boot-starter-logging.version>
+    <transport.version>5.0.0</transport.version>
   </properties>
 
 
@@ -57,25 +61,72 @@
       <version>${fastjson.version}</version>
     </dependency>
 
-    <!-- JSP相关 -->
+    <!-- Spring -->
     <dependency>
-      <groupId>jstl</groupId>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jms</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <!-- JSP相关 -->
+    <!--<dependency>-->
+      <!--<groupId>jstl</groupId>-->
+      <!--<artifactId>jstl</artifactId>-->
+      <!--<version>${jstl.version}</version>-->
+    <!--</dependency>-->
+    <!---->
+
+    <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>${jstl.version}</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
     <dependency>
       <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
+      <artifactId>javax.servlet-api</artifactId>
       <version>${servlet-api.version}</version>
-      <scope>provided</scope>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/javax.servlet/jsp-api -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jsp-api</artifactId>
       <version>${jsp-api.version}</version>
       <scope>provided</scope>
     </dependency>
-
 
     <!--fairy-common-->
     <dependency>
@@ -97,6 +148,11 @@
       <groupId>org.elasticsearch</groupId>
       <artifactId>elasticsearch</artifactId>
       <version>${elasticsearch.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.elasticsearch.client</groupId>
+      <artifactId>transport</artifactId>
+      <version>${transport.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -169,8 +225,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.2</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>1.7</source>
+          <target>1.7</target>
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>

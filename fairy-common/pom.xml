@@ -31,27 +31,6 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.apache.lucene/lucene-queryparser &ndash;&gt;-->
-        <!--<dependency>-->
-        <!--<groupId>org.apache.lucene</groupId>-->
-        <!--<artifactId>lucene-queryparser</artifactId>-->
-        <!--<version>5.4.0</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.apache.lucene/lucene-queries &ndash;&gt;-->
-        <!--<dependency>-->
-        <!--<groupId>org.apache.lucene</groupId>-->
-        <!--<artifactId>lucene-queries</artifactId>-->
-        <!--<version>5.4.0</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.apache.lucene/lucene-spatial &ndash;&gt;-->
-        <!--<dependency>-->
-        <!--<groupId>org.apache.lucene</groupId>-->
-        <!--<artifactId>lucene-spatial</artifactId>-->
-        <!--<version>5.4.0</version>-->
-        <!--</dependency>-->
-
         <dependency>
             <groupId>org.mapdb</groupId>
             <artifactId>mapdb</artifactId>

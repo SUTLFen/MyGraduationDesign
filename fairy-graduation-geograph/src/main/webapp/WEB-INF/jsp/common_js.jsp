@@ -14,7 +14,13 @@
 <%--slider new--%>
 <script src="jslib/bootstrap-slider.js"></script>
 
+<script src="jslib/L.Control.SelectBox.js"></script>
+
 
 <script src="script/index.js"></script>
 <script src="script/initMapWithGaode.js"></script>
+<script src="script/drawQuadTreeMap.js"></script>
+<script src="script/drawQuadTreeMap_02.js"></script>
+<script src="script/queue.js"></script>
+
 

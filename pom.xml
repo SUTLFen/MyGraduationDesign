@@ -8,7 +8,7 @@
   <modules>
     <module>fairy-common</module>
     <module>fairy-graduation-geograph</module>
-    <module>fairy-confusion</module>
+    <module>fairy-data</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -42,6 +42,8 @@
     <guava.version>18.0</guava.version>
     <spring-boot-starter-logging.version>1.4.0.RELEASE</spring-boot-starter-logging.version>
     <transport.version>5.0.0</transport.version>
+    <lucene-core.version>6.4.0</lucene-core.version>
+    <ikanalyzer.version>6.4.0</ikanalyzer.version>
   </properties>
 
 
@@ -214,6 +216,22 @@
       <artifactId>spring-boot-starter-logging</artifactId>
       <version>${spring-boot-starter-logging.version}</version>
     </dependency>
+
+    <!--lucene & ik-analyzer-->
+    <dependency>
+      <groupId>org.apache.lucene</groupId>
+      <artifactId>lucene-core</artifactId>
+      <version>${lucene-core.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.seaboat</groupId>
+      <artifactId>IKAnalyzer</artifactId>
+      <version>${ikanalyzer.version}</version>
+    </dependency>
+
+
+
   </dependencies>
   </dependencyManagement>
 

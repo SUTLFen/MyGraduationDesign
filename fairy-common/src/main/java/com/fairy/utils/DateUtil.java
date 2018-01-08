@@ -28,6 +28,17 @@ public class DateUtil {
         return date.getTime();
     }
 
+    /*
+    * @param isFormt : timeStr 是否为标准的时间字符串，如 ：Fri Jan 01 00:58:20 +0800 2016
+     */
+    public long getTime(String timeStr, boolean isFormat) throws ParseException {
+            if(isFormat){
+                Date date = new Date(timeStr);
+                return date.getTime();
+            }else{
+                return getTime(timeStr);
+            }
+    }
 
 /**
  * 构建时间字符串
@@ -53,5 +64,6 @@ public class DateUtil {
         String endTime = MessageFormat.format("{0} {1}:59:59", dateStr, hourStr);
         return endTime;
     }
+
 
 }

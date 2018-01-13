@@ -1,6 +1,8 @@
 package com.fairy.util;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
@@ -21,9 +23,15 @@ public class LuceneUtil {
 
     public IndexWriter getAnalyzerIndexWriter(String path) throws IOException {
         Directory directory = FSDirectory.open(Paths.get(path));
-        Analyzer ikAnalyzer =  new IKAnalyzer();
+        Analyzer ikAnalyzer =  new IKAnalyzer(true);
         IndexWriterConfig config = new IndexWriterConfig(ikAnalyzer);
         IndexWriter iwriter = new IndexWriter(directory, config);
         return iwriter;
+    }
+
+    public static IndexReader getIndexReader(String indexPath) throws IOException {
+        Directory directory = FSDirectory.open(Paths.get(indexPath));
+        IndexReader indexReader = DirectoryReader.open(directory);
+        return indexReader;
     }
 }

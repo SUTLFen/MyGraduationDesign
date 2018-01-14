@@ -1,6 +1,7 @@
 package com.fairy.index;
 
 import com.fairy.pojo.WeiboFields;
+import com.fairy.util.ConfigUtil;
 import com.fairy.util.LuceneUtil;
 import com.fairy.util.StringUtil;
 import org.apache.lucene.document.Document;
@@ -19,7 +20,8 @@ import java.util.Set;
 
 public class WordBag {
 
-    private String indexPath = "E:\\01_IdeaProjectData\\weibo\\weibo_index";
+    private String indexPath = ConfigUtil.getValue("indexPath",
+            "conf.properties");
 
 
     public static List<String> generate(String indexPath) throws IOException {

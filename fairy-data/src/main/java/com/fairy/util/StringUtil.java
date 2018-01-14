@@ -88,19 +88,4 @@ StringUtil {
     if (m.matches()) flag = true;
     return flag;
   }
-
-  public static void toString(double[][] datas){
-    StringBuffer sb = new StringBuffer();
-    for (int i = 0; i < datas.length; i++) {
-      for (int j = 0; j < datas[i].length; j++) {
-        if(j != datas[i].length - 1){
-          sb.append(datas[i][j] + " ");
-        }else{
-          sb.append(datas[i][j]);
-        }
-        sb.append("\n");
-      }
-    }
-    System.out.println(sb.toString());
-  }
 }

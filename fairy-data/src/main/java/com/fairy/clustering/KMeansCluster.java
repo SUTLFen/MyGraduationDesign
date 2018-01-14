@@ -3,21 +3,21 @@ package com.fairy.clustering;
 import com.fairy.IDF;
 import com.fairy.hotword.LuceneMemoryIDF;
 import com.fairy.index.WordBag;
+import com.fairy.util.ConfigUtil;
 import com.fairy.util.DataReader;
 import com.fairy.util.StringUtil;
 import com.fairy.util.VectorUtil;
 import smile.clustering.KMeans;
 
 import java.awt.image.Kernel;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class KMeansCluster {
 
-    private static String indexPath = "E:\\01_IdeaProjectData\\weibo\\weibo_index";
+    private static String indexPath = null;
 
     private IDF idf = new LuceneMemoryIDF();
 
@@ -27,7 +27,7 @@ public class KMeansCluster {
 
 
     public void learn(String indexPath) throws IOException {
-
+        indexPath = ConfigUtil.getValue("indexPath", "conf.properties");
         List<String> textList = WordBag.getContentList(indexPath);   //读取微博每条信息
         List<String> vectorList = WordBag.generate(indexPath);   //微博关键字
 
@@ -44,8 +44,6 @@ public class KMeansCluster {
 //                if (labels[i] == j)
 //                    System.out.println(textList.get(i));
 //        }
-
-        StringUtil.toString(datas);
 
 
     }

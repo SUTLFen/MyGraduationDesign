@@ -2,6 +2,7 @@ package com.fairy.index;
 
 import com.fairy.pojo.Weibo;
 import com.fairy.pojo.WeiboFields;
+import com.fairy.util.ConfigUtil;
 import com.fairy.utils.FileUtil;
 import com.fairy.util.LuceneUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -19,8 +20,10 @@ import java.text.ParseException;
 
 public class IndexWeiboCore {
 
-    private String inPath = "E:\\01_IdeaProjectData\\weibo\\wiebo_data";
-    private String outPath = "E:\\01_IdeaProjectData\\weibo\\weibo_index";
+    private String inPath = ConfigUtil.getValue("dataPath",
+            "conf.properties");
+    private String outPath = ConfigUtil.getValue("indexPath",
+            "conf.properties");
 
     private FileUtil fileUtil = FileUtil.getInstance();
     private LuceneUtil luceneUtil = LuceneUtil.getInstance();

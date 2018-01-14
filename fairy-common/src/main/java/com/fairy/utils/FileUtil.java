@@ -2,6 +2,7 @@ package com.fairy.utils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
+import java.util.Properties;
 
 /**
  * Created by Fairy_LFen on 2017/1/14.
@@ -73,6 +74,42 @@ public class FileUtil {
         InputStream inputstream = new FileInputStream(file);
         String text = IOUtils.toString(inputstream);
         return text;
+    }
+
+    /**
+     * 获取配置文件ConfigFileName中，keyName的value值
+     * @param keyName key值
+     * @param ConfigFileName 配置文件名
+     * @return value值
+     */
+    public String getFilePathByConfFile(String keyName, String ConfigFileName){
+        String configPath = this.getClass().getClassLoader().getResource(ConfigFileName).toString();
+        Properties properties = new Properties();
+        InputStream input = null;
+        try {
+            input = new FileInputStream(configPath);//加载Java项目根路径下的配置文件
+            properties.load(input);// 加载属性文件
+            return properties.getProperty(keyName);
+        } catch (IOException io) {
+            io.printStackTrace();
+            return null;
+        }
+        finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        FileUtil file = FileUtil.getInstance();
+        System.out.println(file.getFilePathByConfFile(
+                "indexPath",
+                "conf.properties"));
     }
 }
 

@@ -1,6 +1,7 @@
 package com.fairy.hotword;
 
 import com.fairy.IDF;
+import com.fairy.util.ConfigUtil;
 import com.fairy.util.LuceneUtil;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Term;
@@ -18,7 +19,8 @@ import java.io.IOException;
  */
 public class LuceneMemoryIDF implements IDF {
 
-  private final String indexPath = "E:\\01_IdeaProjectData\\weibo\\weibo_index";
+  private final String indexPath = ConfigUtil.getValue("indexPath",
+          "conf.properties");
 
   @Override
   public float getIDF(String term) {

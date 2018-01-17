@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.text.ParseException;
 
 public class IndexWeiboCore {
@@ -34,13 +35,18 @@ public class IndexWeiboCore {
         File[] weiboFiles = rawDataPath.listFiles();
 
         BufferedReader br = null;
-        IndexWriter indexWriter = luceneUtil.getAnalyzerIndexWriter(outPath);
+        IndexWriter indexWriter = null;
         String line;
         String[] strs = null;
         Weibo weibo = null;
         Document doc = null;
+        String indexFileName = null;
+
         for (int i = 0; i < weiboFiles.length; i++) {
             br = fileUtil.getBufferedReader(weiboFiles[i]);
+            indexFileName = extractDayStr(weiboFiles[i].getName());
+            indexWriter = luceneUtil.getAnalyzerIndexWriter(outPath, indexFileName);
+
             while ((line = br.readLine()) != null) {
                 strs = line.split("\\t");
                 weibo = weibo.create(strs);
@@ -49,9 +55,26 @@ public class IndexWeiboCore {
                     indexWriter.addDocument(doc);
                 }
             }
+            indexWriter.close();
         }
-        indexWriter.close();
         System.out.println("索引创建成功。。。");
+    }
+
+    private String extractDayStr(String name) {
+        String[] strs = name.split("\\s+|\\-|\\.");
+        String yearStr = strs[1];
+        String monthStr = strs[2];
+        String dayStr = strs[3];
+
+        String resultStr = MessageFormat.format("{0}-{1}-{2}", yearStr, monthStr, dayStr);
+        return resultStr;
+    }
+
+    public static void main(String[] args) {
+        File file = new File("hangzhou-2016-01-01 19-00-00.txt");
+        System.out.println(file.getName());
+        String str = new IndexWeiboCore().extractDayStr(file.getName());
+        System.out.println(str);
     }
 
     private Document createDoc(Weibo weibo) {
@@ -77,8 +100,8 @@ public class IndexWeiboCore {
     }
 
 
-    public static void main(String[] args) throws IOException, ParseException {
-        new IndexWeiboCore().indexWeibo();
-    }
+//    public static void main(String[] args) throws IOException, ParseException {
+//        new IndexWeiboCore().indexWeibo();
+//    }
 
 }

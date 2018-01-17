@@ -9,7 +9,9 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class LuceneUtil {
@@ -21,8 +23,12 @@ public class LuceneUtil {
         return instance;
     }
 
-    public IndexWriter getAnalyzerIndexWriter(String path) throws IOException {
-        Directory directory = FSDirectory.open(Paths.get(path));
+    public IndexWriter getAnalyzerIndexWriter(String parentPath, String file ) throws IOException {
+        Path path = Paths.get(parentPath, file);
+        File fileTemp = path.toFile();
+        if(!fileTemp.exists()) fileTemp.mkdir();
+
+        Directory directory = FSDirectory.open(Paths.get(fileTemp.getAbsolutePath()));
         Analyzer ikAnalyzer =  new IKAnalyzer(true);
         IndexWriterConfig config = new IndexWriterConfig(ikAnalyzer);
         IndexWriter iwriter = new IndexWriter(directory, config);

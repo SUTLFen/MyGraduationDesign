@@ -1,7 +1,9 @@
 package com.fairy.utils;
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -106,10 +108,6 @@ public class FileUtil {
     }
 
     public static void main(String[] args) {
-        FileUtil file = FileUtil.getInstance();
-        System.out.println(file.getFilePathByConfFile(
-                "indexPath",
-                "conf.properties"));
     }
 }
 

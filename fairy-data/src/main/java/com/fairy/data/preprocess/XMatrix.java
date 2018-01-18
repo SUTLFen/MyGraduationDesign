@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 输入：POI数据
@@ -107,7 +108,26 @@ public class XMatrix {
     }
 
     public static void main(String[] args) throws IOException {
-        new XMatrix().XMatrixGen();
+//        new XMatrix().XMatrixGen();
 //        new XMatrix().simplePOIData();
+        new XMatrix().collectPOIType();
+    }
+
+    private void collectPOIType() throws IOException {
+
+        String[] result = new String[100];
+
+        String poiSimpleStr = fileUtil.readJsonFileToStr(new File(poiSimplePath));
+        List<POISimple> poiSimpleList = JSON.parseArray(poiSimpleStr, POISimple.class);
+
+        POISimple poiSimple = null;
+        for (int i = 0; i < poiSimpleList.size(); i++) {
+            poiSimple = poiSimpleList.get(i);
+            int poiIndex = toPOIIndex(poiSimple);
+            result[poiIndex] = poiSimple.getType();
+        }
+
+        String poiTypeStr = JSON.toJSONString(result);
+        fileUtil.saveToFile("fairy-data/data/poiType.json", poiTypeStr, false);
     }
 }

@@ -13,6 +13,9 @@ public class POISimple {
     private String type ;
     private String typecode;
 
+    public POISimple() {
+    }
+
     public POISimple(POI poi) {
         this.name = poi.getName();
         this.locationx = poi.getLocationx();

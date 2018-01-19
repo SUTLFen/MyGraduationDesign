@@ -8,6 +8,7 @@ import com.fairy.utils.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,31 @@ public class PrCarPreprocessor {
     private FileUtil fileUtil = FileUtil.getInstance();
 
 
-    public void addLatlngToPrCar() throws IOException, ParseException {
-        List<KK> kkList = toKKList(kkOldPath);
-        List<PrCarOld> prCarOldList = toPrCarOldList(prCarOldPath);
+    public void process() throws IOException, ParseException {
+        File prCaroldFile = new File(prCarOldPath);
+        File[] prCarOldFiles = prCaroldFile.listFiles();
 
+        List<KK> kkList = toKKList(kkOldPath);
+
+        File prCarFile;
+        String fileName_old, fileName_new;
+        for (int i = 0; i < prCarOldFiles.length; i++) {
+            prCarFile = prCarOldFiles[i];
+            fileName_old = prCarFile.getName();
+            fileName_new = convetToNew(fileName_old);
+
+            addLatlngToPrCar(prCarOldFiles[i], fileName_new, kkList);
+        }
+    }
+
+    private String convetToNew(String fileName_old) {
+        String[] strs = fileName_old.split(".");
+        return strs[0] + "_new.json";
+    }
+
+    public void addLatlngToPrCar(File prCarOldFile, String fileName_new, List<KK> kkList) throws IOException, ParseException {
+//        List<KK> kkList = toKKList(kkOldPath);
+        List<PrCarOld> prCarOldList = toPrCarOldList(prCarOldFile);
         List<PrCar> prCarList = new ArrayList<>();
 
         for (PrCarOld prCarOldTmp : prCarOldList) {
@@ -46,12 +68,11 @@ public class PrCarPreprocessor {
         }
 
         String jsonStr = JSON.toJSONString(prCarList, true);
-        fileUtil.saveToFile(prCarPath, jsonStr, false);
-
+        fileUtil.saveToFile(prCarPath+"/"+fileName_new, jsonStr, false);
     }
 
-    private List<PrCarOld> toPrCarOldList(String path) throws IOException {
-        String str = fileUtil.readJsonFileToStr(new File(path));
+    private List<PrCarOld> toPrCarOldList(File file) throws IOException {
+        String str = fileUtil.readJsonFileToStr(file);
         List<PrCarOld> list = JSON.parseArray(str, PrCarOld.class);
         return list;
     }
@@ -64,7 +85,8 @@ public class PrCarPreprocessor {
     }
 
     public static void main(String[] args) throws IOException, ParseException {
-        new PrCarPreprocessor().addLatlngToPrCar();
+        new PrCarPreprocessor().process();
+//        new PrCarPreprocessor().addLatlngToPrCar();
     }
 
 }

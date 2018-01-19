@@ -5,6 +5,7 @@ import com.fairy.pojo.POI;
 import com.fairy.pojo.POISimple;
 import com.fairy.pojo.Region;
 import com.fairy.util.ConfigUtil;
+import com.fairy.util.RegionsUtil;
 import com.fairy.utils.FileUtil;
 
 import java.io.File;
@@ -46,7 +47,7 @@ public class XMatrix {
         for (int i = 0; i < regionList.size(); i++) {
             region = regionList.get(i);
             for (POISimple poi : poiSimpleList) {
-                if(isContained(region, poi)){
+                if(RegionsUtil.isInRegion(region, poi)){
                     int poiIndex = toPOIIndex(poi);
                     if(poiIndex > 0){
                         matrixX[i][poiIndex - 5]++;
@@ -80,17 +81,7 @@ public class XMatrix {
         }
     }
 
-    private boolean isContained(Region region, POISimple poi) {
-        double lat = poi.getLocationx();
-        double lng = poi.getLocationy();
 
-        if(lat >= region.getLat02() && lat <= region.getLat01() && lng >= region.getLng01()
-                && lng <= region.getLng02())
-        {
-            return true;
-        }
-        return false;
-    }
 
     //将POI转为POISimple
     public void simplePOIData() throws IOException {

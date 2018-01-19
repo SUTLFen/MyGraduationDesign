@@ -49,7 +49,6 @@ public class PrCarPreprocessor {
     }
 
     public void addLatlngToPrCar(File prCarOldFile, String fileName_new, List<KK> kkList) throws IOException, ParseException {
-//        List<KK> kkList = toKKList(kkOldPath);
         List<PrCarOld> prCarOldList = toPrCarOldList(prCarOldFile);
         List<PrCar> prCarList = new ArrayList<>();
 
@@ -86,7 +85,6 @@ public class PrCarPreprocessor {
 
     public static void main(String[] args) throws IOException, ParseException {
         new PrCarPreprocessor().process();
-//        new PrCarPreprocessor().addLatlngToPrCar();
     }
 
 }

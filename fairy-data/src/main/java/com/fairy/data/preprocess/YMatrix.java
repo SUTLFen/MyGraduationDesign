@@ -103,8 +103,7 @@ public class YMatrix {
 //    }
 
     public static void main(String[] args) throws IOException {
-//        new YMatrix().YMatrixGen();
-
+        new YMatrix().YMatrixGen();
 
     }
 }

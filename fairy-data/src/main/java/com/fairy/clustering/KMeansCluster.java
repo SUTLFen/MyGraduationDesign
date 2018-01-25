@@ -44,8 +44,6 @@ public class KMeansCluster {
 //                if (labels[i] == j)
 //                    System.out.println(textList.get(i));
 //        }
-
-
     }
 
 

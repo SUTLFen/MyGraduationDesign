@@ -51,7 +51,6 @@ public class WordBag {
     public static List<String> getContentList(String indexPath) throws IOException {
 
         List<String> contentList = new ArrayList<String>();
-
         IndexReader reader = LuceneUtil.getIndexReader(indexPath);
 
         Document doc = null;
@@ -60,7 +59,6 @@ public class WordBag {
             Field contentField = (Field) doc.getField(WeiboFields.content);
             contentList.add(contentField.stringValue());
         }
-
         return contentList;
     }
 

@@ -5,6 +5,7 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
@@ -40,4 +41,11 @@ public class LuceneUtil {
         IndexReader indexReader = DirectoryReader.open(directory);
         return indexReader;
     }
+    public static IndexSearcher getIndexSearcher(String indexPath) throws IOException {
+        Directory directory = FSDirectory.open(Paths.get(indexPath));
+        IndexReader indexReader = DirectoryReader.open(directory);
+        IndexSearcher isearcher = new IndexSearcher(indexReader);
+        return isearcher;
+    }
+
 }

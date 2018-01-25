@@ -18,6 +18,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * 把微博分词，并由空格分开，最后为LDA4j-master所用
+ */
 public class WeiboProcessor {
 
     private String  indexPath;

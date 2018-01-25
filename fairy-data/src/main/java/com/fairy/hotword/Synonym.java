@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 
+ * synonym : 同义词
  * @author seaboat
  * @date 2017-05-09
  * @version 1.0
@@ -26,7 +26,8 @@ public class Synonym {
 
   public String getSynonym(String term) {
     for (int i = 1; i < synonymList.size(); i++) {
-      if (synonymList.get(i).equals(term)) return synonymList.get(0);
+      if (synonymList.get(i).equals(term))
+        return synonymList.get(0);
     }
     return null;
   }

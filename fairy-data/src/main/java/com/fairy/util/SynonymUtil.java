@@ -45,7 +45,8 @@ public class SynonymUtil {
   public static String getSynonym(String term) {
     String str;
     for (Synonym s : synonyms)
-      if ((str = s.getSynonym(term)) != null) return str;
+      if ((str = s.getSynonym(term)) != null)
+        return str;
     return null;
   }
 

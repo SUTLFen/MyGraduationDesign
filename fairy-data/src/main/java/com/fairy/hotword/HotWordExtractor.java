@@ -83,7 +83,6 @@ public class HotWordExtractor implements IHotWordExtractor {
           long b = terms.size();
           float tf = (float) a / b;
           float score = idfn * tf + scoreFactor;
-
           //关键字，词频，tf-idf
           list.add(new Result(term, (int) termsEnum.totalTermFreq(), score));
         }
@@ -92,16 +91,20 @@ public class HotWordExtractor implements IHotWordExtractor {
       List<Result> toRemove = new LinkedList<Result>();
       for (Result result : list) {
         String synonym;
-        if ((synonym = SynonymUtil.getSynonym(result.getTerm())) != null) for (Result r : list) {
-          if (r.getTerm().equals(synonym)) {
-            r.setFrequency(r.getFrequency() + result.getFrequency());
-            r.setScore(r.getScore() + result.getScore());
-            toRemove.add(result);
+        if ((synonym = SynonymUtil.getSynonym(result.getTerm())) != null) {
+          for (Result r : list) {
+            if (r.getTerm().equals(synonym)) {
+              r.setFrequency(r.getFrequency() + result.getFrequency());
+              r.setScore(r.getScore() + result.getScore());
+              toRemove.add(result);
+            }
           }
         }
       }
+
       for (Result r : toRemove)
         list.remove(r);
+
       if (useScore) {
         Collections.sort(list, new Comparator<Result>() {
           @Override

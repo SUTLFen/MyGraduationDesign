@@ -1,4 +1,4 @@
-package com.fairy.index;
+package com.fairy.indexing;
 
 import com.fairy.pojo.WeiboFields;
 import com.fairy.util.ConfigUtil;
@@ -6,7 +6,6 @@ import com.fairy.util.LuceneUtil;
 import com.fairy.util.StringUtil;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.index.Fields;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Terms;
 import org.apache.lucene.index.TermsEnum;

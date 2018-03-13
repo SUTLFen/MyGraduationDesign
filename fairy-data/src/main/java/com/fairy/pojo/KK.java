@@ -1,26 +1,28 @@
 package com.fairy.pojo;
 
+import java.text.MessageFormat;
+
 /**
  * 卡口
  */
 public class KK {
-    private String fxdh;
-    private String id;
-    private String kkId;
-    private String kkName;
-    private String kkType;
-    private String lat;
-    private String lng;
+    private String fxbh;     //方向编号
+    private String id;       //序号
+    private String kkId;     //卡口id
+    private String kkName;   //卡口名字
+    private String kkType;   //卡口类型
+    private String lat;      //经纬坐标-纬度
+    private String lng;      //经纬坐标-经度
 
     public KK() {
     }
 
-    public String getFxdh() {
-        return fxdh;
+    public String getFxbh() {
+        return fxbh;
     }
 
-    public void setFxdh(String fxdh) {
-        this.fxdh = fxdh;
+    public void setFxbh(String fxdh) {
+        this.fxbh = fxdh;
     }
 
     public String getId() {
@@ -69,5 +71,12 @@ public class KK {
 
     public void setLng(String lng) {
         this.lng = lng;
+    }
+
+    @Override
+    public String toString() {
+        String str = MessageFormat.format("{0}:[{1}, {2}]",
+                this.kkId, this.lat, this.lng);
+        return str;
     }
 }

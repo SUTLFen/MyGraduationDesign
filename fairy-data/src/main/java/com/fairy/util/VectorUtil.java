@@ -10,58 +10,84 @@ import org.apache.lucene.index.*;
 import org.apache.lucene.util.BytesRef;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.*;
 
 public class VectorUtil {
 
     protected static Logger logger = Logger.getLogger(VectorUtil.class);
-    private static final String indexPath = "index4vector";
+    private static String indexPath = "D:\\01_Fairy_LFen\\07_Data\\weibo\\weibo_index";
 
-    public static double[][] getVector(int row, List<String> vectorList, IDF idf) {
+    public static double[][] getVector(int row, List<String> vectorList, IDF idf) throws IOException {
         Map<String, Double> tfidf = new HashMap<String, Double>();
         // calculating the vector of samples
         double[][] samples = new double[row][vectorList.size()];
         IndexReader reader = null;
-        try {
-            reader = LuceneUtil.getIndexReader("E:\\01_IdeaProjectData\\weibo\\weibo_index");
-            for (int i = 0; i < row; i++) {
-                try {
-                    int j = 0;
-                    for (int m = 0; m < vectorList.size(); m++) {
-                        String vTerm = vectorList.get(m);
+        reader = LuceneUtil.getIndexReader(indexPath);
+        for (int i = 0; i < row; i++) {
 
-                        Terms terms = reader.getTermVector(i, WeiboFields.content); //获取索引中词term
+            int j = 0;
+            for (int m = 0; m < vectorList.size(); m++) {
+                String vTerm = vectorList.get(m);
 
-                        TermsEnum termsEnum = terms.iterator();
-                        BytesRef thisTerm = null;
-                        boolean isContain = false;
-                        while ((thisTerm = termsEnum.next()) != null) {
-                            String term = thisTerm.utf8ToString();
-                            if (term.equals(vTerm)) {
+                Terms terms = reader.getTermVector(i, WeiboFields.content); //获取索引中词term
 
-                                float idfn = idf.getIDF(term);
-                                int a = (int) termsEnum.totalTermFreq();
-                                long b = terms.size();
-                                float tf = (float) a / b;
+                TermsEnum termsEnum = terms.iterator();
+                BytesRef thisTerm = null;
+                boolean isContain = false;
+                while ((thisTerm = termsEnum.next()) != null) {
+                    String term = thisTerm.utf8ToString();
+                    if (term.equals(vTerm)) {
 
-                                samples[i][j] = idfn * tf;
-                                tfidf.put(term, samples[i][j]);
-                                isContain = true;
-                                break;
-                            }
-                        }
-                        // not contain means this vector value is 0
-                        if (!isContain) samples[i][j] = 0.0;
-                        j++;
+                        float idfn = idf.getIDF(term);
+                        int a = (int) termsEnum.totalTermFreq();
+                        long b = terms.size();
+                        float tf = (float) a / b;
+
+                        samples[i][j] = idfn * tf;
+                        tfidf.put(term, samples[i][j]);
+                        isContain = true;
+
+//                        String str = MessageFormat.format(
+//                                "idfn:{0}, a:{1}, b:{2}, tf:{3}, idfn*tf",
+//                                idfn + "", a + "", b + "", tf + "", samples[i][j]);
+
+                        System.out.println(samples[i][j]);
+                        break;
                     }
-                } catch (IOException e) {
-                    logger.error("IOException happens ", e);
                 }
+                // not contain means this vector value is 0
+                if (!isContain)
+                    samples[i][j] = 0.0;
+                j++;
             }
-        } catch (IOException e) {
-            logger.error("IOException happens ", e);
         }
+
+        for (int i = 0; i < samples.length; i++) {
+            for (int j = 0; j < samples[i].length; j++) {
+                System.out.print(samples[i][j]);
+                System.out.print(" ");
+            }
+            System.out.println();
+        }
+
         return samples;
     }
 
+    public static void main(String[] args) {
+        double[] a = new double[5];
+        try{
+            for (int i = 0; i < a.length; i++) {
+                a[i] = i;
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+        for (int i = 0; i < a.length; i++) {
+            System.out.println(a[i]);
+        }
+    }
 }

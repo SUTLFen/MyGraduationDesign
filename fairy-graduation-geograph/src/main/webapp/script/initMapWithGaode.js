@@ -17,6 +17,7 @@ function initMapWithGaode() {
         zoomOutTitle: '缩小'
     }).addTo(map);
 
-    var control = L.control.selectBox({modal: true});
-    map.addControl(control);
+    // var control = L.control.selectBox({modal: true});
+    //
+    // map.addControl(control);
 }

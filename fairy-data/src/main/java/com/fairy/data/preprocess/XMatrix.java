@@ -1,28 +1,28 @@
 package com.fairy.data.preprocess;
 
 import com.alibaba.fastjson.JSON;
+import com.fairy.pojo.Grid;
 import com.fairy.pojo.POI;
 import com.fairy.pojo.POISimple;
-import com.fairy.pojo.Region;
 import com.fairy.util.ConfigUtil;
-import com.fairy.util.RegionsUtil;
+import com.fairy.util.GridUtil;
 import com.fairy.utils.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 输入：POI数据
  * 输出：矩阵Region*Features
+ *      Grid特征向量
  */
 public class XMatrix {
 
     private String poiPath = ConfigUtil.getValue("poiPath", "conf.properties");
     private String poiSimplePath = ConfigUtil.getValue("poiSimplePath", "conf.properties");
-    private String regionsPath = ConfigUtil.getValue("regionsPath", "conf.properties");
+    private String gridPath = ConfigUtil.getValue("gridPath", "conf.properties");
     private FileUtil fileUtil = FileUtil.getInstance();
     private int poi_v;
 
@@ -35,24 +35,23 @@ public class XMatrix {
     public void XMatrixGen() throws IOException {
         initParam();
 
-        String regionStr = fileUtil.readJsonFileToStr(new File(regionsPath));
-        List<Region> regionList = JSON.parseArray(regionStr, Region.class);
+        String gridStr = fileUtil.readJsonFileToStr(new File(gridPath));
+        List<Grid> gridList = JSON.parseArray(gridStr, Grid.class);
 
         String poiSimpleStr = fileUtil.readJsonFileToStr(new File(poiSimplePath));
         List<POISimple> poiSimpleList = JSON.parseArray(poiSimpleStr, POISimple.class);
 
 
-        int[][] matrixX = new int[regionList.size()][poi_v];
-        Region region = null;
-        for (int i = 0; i < regionList.size(); i++) {
-            region = regionList.get(i);
+        int[][] matrixX = new int[gridList.size()][poi_v];
+        Grid grid = null;
+        for (int i = 0; i < gridList.size(); i++) {
+            grid = gridList.get(i);
             for (POISimple poi : poiSimpleList) {
-                if(RegionsUtil.isInRegion(region, poi)){
+                if(GridUtil.isInGrid(grid, poi)){
                     int poiIndex = toPOIIndex(poi);
                     if(poiIndex > 0){
                         matrixX[i][poiIndex - 5]++;
                     }
-
                 }
             }
         }
@@ -115,6 +114,7 @@ public class XMatrix {
         for (int i = 0; i < poiSimpleList.size(); i++) {
             poiSimple = poiSimpleList.get(i);
             int poiIndex = toPOIIndex(poiSimple);
+            System.out.println(poiIndex);
             result[poiIndex] = poiSimple.getType();
         }
 

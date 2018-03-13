@@ -203,16 +203,16 @@ function RadarChart(id, data, options) {
     //     .enter().append("circle")
     //     .attr("class", "radarCircle")
     //     .attr("class", function(d, i){
-    //         var index = parseInt(k / 20);
+    //         var indexing = parseInt(k / 20);
     //         k++;
-    //         return "radarCircle_" + index;})
+    //         return "radarCircle_" + indexing;})
     //     .attr("r", cfg.dotRadius*0.5)
     //     .attr("cx", function(d,i){ return rScale(d.value) * Math.cos(angleSlice*i - Math.PI/2); })
     //     .attr("cy", function(d,i){ return rScale(d.value) * Math.sin(angleSlice*i - Math.PI/2); })
     //     .style("fill", function(d,i) {
-    //         var index = parseInt(j / 20);
+    //         var indexing = parseInt(j / 20);
     //         j++;
-    //         return cfg.color[index]; })
+    //         return cfg.color[indexing]; })
     //     .style("fill-opacity", 0);
 
 

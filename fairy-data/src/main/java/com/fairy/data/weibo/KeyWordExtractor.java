@@ -30,7 +30,7 @@ public class KeyWordExtractor {
     private FileUtil fileUtil = FileUtil.getInstance();
 
     public void initParam() throws IOException {
-        indexPath = ConfigUtil.getValue("indexPath", "config.properties");
+        indexPath = ConfigUtil.getValue("indexPath", "conf.properties");
         indexReader = LuceneUtil.getIndexReader(indexPath + "\\2016-01-08");
     }
 
@@ -67,5 +67,4 @@ public class KeyWordExtractor {
     public static void main(String[] args) throws IOException {
         new KeyWordExtractor().extract();
     }
-
 }

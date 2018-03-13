@@ -34,7 +34,7 @@ public class PrCarPreprocessor {
 
         File prCarFile;
         String fileName_old, fileName_new;
-        for (int i = 0; i < prCarOldFiles.length; i++) {
+        for (int i = 2; i < prCarOldFiles.length; i++) {
             prCarFile = prCarOldFiles[i];
             fileName_old = prCarFile.getName();
             fileName_new = convetToNew(fileName_old);
@@ -44,7 +44,8 @@ public class PrCarPreprocessor {
     }
 
     private String convetToNew(String fileName_old) {
-        String[] strs = fileName_old.split(".");
+        System.out.println(fileName_old);
+        String[] strs = fileName_old.split("\\.");
         return strs[0] + "_new.json";
     }
 
@@ -60,7 +61,6 @@ public class PrCarPreprocessor {
                     break;
                 }
             }
-
             if(prCar != null){
                 prCarList.add(prCar);
             }

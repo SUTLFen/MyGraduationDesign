@@ -22,6 +22,9 @@ import java.nio.file.Paths;
  * <pre><b>email: </b>849586227@qq.com</pre>
  * <pre><b>blog: </b>http://blog.csdn.net/wangyangzhizhou</pre>
  * <p>a basic index util.</p>
+ *
+ *
+ * Lucene索引util
  */
 public class IndexUtil {
 

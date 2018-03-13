@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * .config文件util
+ */
 public class ConfigUtil {
 
     public static String getValue(String keyName, String configFileName){

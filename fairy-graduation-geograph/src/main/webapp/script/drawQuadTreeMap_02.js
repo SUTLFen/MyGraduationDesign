@@ -112,7 +112,6 @@ function countOfSubtree(curNode) {
 
 //将nodes中的叶子结点保存起来；
 function saveRegins(nodes, proj){
-    console.log(nodes);
     var data = new Object();
     var leafNodes = [];
     for(var i = 0 ; i < nodes.length; i++){
@@ -127,10 +126,10 @@ function saveRegins(nodes, proj){
             leafNode.lat02 = latLng_02.lat;
             leafNode.lng02 = latLng_02.lng;
             leafNodes.push(leafNode);
+            console.log(leafNode.lat01+","+ leafNode.lng01+","+ leafNode.lat02+","+ leafNode.lng02);
         }
     }
     data.nodes = JSON.stringify(leafNodes);
-    console.log(data);
 
         $.ajax({
             url: "SaveRegionServlet",
@@ -141,14 +140,9 @@ function saveRegins(nodes, proj){
                console.log("sucess");
             },
             error: function(XMLHttpRequest , textStatus, errorThrown){
-                console.log("textStatus : " + textStatus);
+                // console.log("textStatus : " + textStatus);
             }
         });
-
-
-    // $.post("SaveRegionsServlet", data, function(data, textStatus){
-    //     console.log(textStatus);
-    // });
 }
 
 

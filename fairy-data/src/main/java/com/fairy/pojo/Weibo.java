@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Weibo {
     public String id;   //0
-    public long time;  //1   文本中形式：  Fri Jan 01 00:58:20 +0800 2016
+    public long time;  //1   文本中形式：  Fri Jan 01 00:58:20 +0800 2016  存储形式为unix时间戳
     public String content;  //2
     public double longitude; //3
     public double latitude;  //4

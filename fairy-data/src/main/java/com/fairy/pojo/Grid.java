@@ -1,13 +1,13 @@
 package com.fairy.pojo;
 
-/**
- * 由四叉树分割后的地理区域
- */
-public class Region {
-    public double lat01;
+public class Grid {
+    public double lat01;  // lat01 lng01 : 左上角
     public double lng01;
-    public double lat02;
+    public double lat02;    // lat02 lng02 : 右下角
     public double lng02;
+
+    public Grid() {
+    }
 
     public double getLat01() {
         return lat01;

@@ -3,6 +3,7 @@ package com.fairy.hotword;
 import com.fairy.IDF;
 import com.fairy.IHotWordExtractor;
 import com.fairy.ScoreFactor;
+import com.fairy.pojo.WeiboFields;
 import com.fairy.util.StringUtil;
 import com.fairy.util.SynonymUtil;
 import org.apache.log4j.Logger;
@@ -37,7 +38,9 @@ public class HotWordExtractor implements IHotWordExtractor {
   private IndexReader reader;
 
   public HotWordExtractor(IndexReader indexReader) {
-    this(new LuceneIDF(), new WordPopularityScore());
+//    this(new LuceneIDF(indexReader), new WordPopularityScore());
+    this.idf = new LuceneIDF(indexReader);
+    this.factor = new WordPopularityScore();
     this.reader = indexReader;
   }
 
@@ -69,14 +72,15 @@ public class HotWordExtractor implements IHotWordExtractor {
 
 //      IndexReader reader = IndexUtil.getIndexReader();
 
-      Terms terms = reader.getTermVector(id, "content");
+      Terms terms = reader.getTermVector(id, WeiboFields.content);
       TermsEnum termsEnum = terms.iterator();
       BytesRef thisTerm = null;
       while ((thisTerm = termsEnum.next()) != null) {
         String term = thisTerm.utf8ToString();
         if ((term.length() > 1) && (!StringUtil.isNumericAndLetter(term))
             && (!StringUtil.isMobile(term)) && (!StringUtil.isPhone(term))
-            && (!StringUtil.isContainNumber(term)) && (!StringUtil.isDate(term))) {
+            && (!StringUtil.isContainNumber(term)) && (!StringUtil.isDate(term))
+                && !term.equals("t.cn")) {
           float idfn = idf.getIDF(term);
           float scoreFactor = factor.getScoreFactor(term);
           int a = (int) termsEnum.totalTermFreq();

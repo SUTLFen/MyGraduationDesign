@@ -17,6 +17,7 @@ import java.nio.file.Paths;
 
 public class LuceneUtil {
     private static LuceneUtil instance = null;
+
     public static  LuceneUtil getInstance(){
         if(instance == null){
             instance = new LuceneUtil();
@@ -31,8 +32,10 @@ public class LuceneUtil {
 
         Directory directory = FSDirectory.open(Paths.get(fileTemp.getAbsolutePath()));
         Analyzer ikAnalyzer =  new IKAnalyzer(true);
-        IndexWriterConfig config = new IndexWriterConfig(ikAnalyzer);
-        IndexWriter iwriter = new IndexWriter(directory, config);
+        IndexWriterConfig iwc = new IndexWriterConfig(ikAnalyzer);
+        iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+        iwc.setRAMBufferSizeMB(100);
+        IndexWriter iwriter = new IndexWriter(directory, iwc);
         return iwriter;
     }
 

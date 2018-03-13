@@ -24,8 +24,10 @@ public class WeiboSearcher {
         String indexPath = ConfigUtil.getValue("indexPath", "conf.properties");
         IndexSearcher indexSearcher = LuceneUtil.getIndexSearcher(indexPath + "\\2016-01-08");
         Analyzer ikAnalyzer =  new IKAnalyzer(true);
+
         QueryParser parser = new QueryParser(WeiboFields.content, ikAnalyzer);
         Query query = parser.parse("堵");
+
         ScoreDoc[] hits = indexSearcher.search(query, 1000, null).scoreDocs;
 
         Document doc = null;

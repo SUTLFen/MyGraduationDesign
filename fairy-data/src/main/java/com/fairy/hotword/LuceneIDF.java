@@ -18,10 +18,18 @@ import java.io.IOException;
  */
 public class LuceneIDF implements IDF {
 
+  private IndexReader reader;
+
+  public LuceneIDF(IndexReader indexReader){
+      this.reader = indexReader;
+  }
+
   @Override
   public float getIDF(String term) {
     try {
-      IndexReader reader = IndexUtil.getIndexReader();
+
+//      IndexReader reader = IndexUtil.getIndexReader();
+
       float a = reader.numDocs() + 1;
       float b = reader.docFreq(new Term("content", term)) + 1;
       float idf = (float) Math.log(a / b);

@@ -99,6 +99,7 @@ public class IndexWeiboCore {
         return doc;
     }
 
+
 //    public static void main(String[] args) throws IOException, ParseException {
 //        new IndexWeiboCore().indexWeibo();
 //    }

@@ -9,6 +9,10 @@
 <link rel="stylesheet" href="style/timeline.css">
 <link rel="stylesheet" href="style/title-div.css">
 
+<%--时序图--%>
+<link rel="stylesheet" href="style/time-box.css">
+
+
 <%--卡口和四叉树--%>
 <link rel="stylesheet" href="style/kk-region.css">
 

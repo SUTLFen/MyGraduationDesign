@@ -16,6 +16,9 @@
 
 <script src="jslib/L.Control.SelectBox.js"></script>
 
+<%--绘制时序图--%>
+<script src="script/drawPolyline.js"></script>
+<script src="script/drawTimeView.js"></script>
 
 <script src="script/index.js"></script>
 <script src="script/initMapWithGaode.js"></script>

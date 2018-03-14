@@ -18,13 +18,12 @@ import java.util.List;
  */
 public class PrCarPreprocessor {
 
-    private String prCarOldPath = "fairy-data/data/01_PrCar";
-    private String prCarPath = "fairy-data/data/01_PrCarNew";
+    private String prCarOldPath = "fairy-data/data/02_PrCar";
+    private String prCarPath = "fairy-data/data/02_PrCarNew";
 
     private String kkOldPath = "fairy-data/data/kk_info.json";
 
     private FileUtil fileUtil = FileUtil.getInstance();
-
 
     public void process() throws IOException, ParseException {
         File prCaroldFile = new File(prCarOldPath);
@@ -34,7 +33,7 @@ public class PrCarPreprocessor {
 
         File prCarFile;
         String fileName_old, fileName_new;
-        for (int i = 2; i < prCarOldFiles.length; i++) {
+        for (int i = 0; i < prCarOldFiles.length; i++) {
             prCarFile = prCarOldFiles[i];
             fileName_old = prCarFile.getName();
             fileName_new = convetToNew(fileName_old);

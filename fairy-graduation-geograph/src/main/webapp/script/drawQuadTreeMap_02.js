@@ -1,5 +1,31 @@
 var leaf_threshhold = 50;  // 四叉树分叉阈值
 
+var entropyArray = [-0.25235066,
+    -4.5324087,
+    -4.477898,
+    -4.3169856,
+    -3.9614975,
+    -4.164416,
+    -2.7272558,
+    -1.7501979,
+    -1.0402491,
+    -1.8225399,
+    -3.9797168,
+    -4.0699706,
+    -3.4977307,
+    -3.1527863,
+    -0.8064474,
+    -3.0614681,
+    -3.1828613,
+    -3.132613,
+    -1.50808,
+    -3.7723353,
+    -2.9235816,
+    -4.2844844,
+    -3.734143,
+    -3.43219,
+    -3.1447463];
+
 function drawQuad(sel, proj, kkData){
 
     var width = d3.select("#map").style("width");
@@ -23,6 +49,17 @@ function drawQuad(sel, proj, kkData){
         .domain([0, 8])  // max depth of quadtree
         .range(["#efe", "#060"]);
 
+    var entropyScale = d3.scale.linear()
+        .domain(d3.extent(entropyArray))
+        .range([1, 0]);
+
+    var colorInterpolate = function(index) {
+        var color_a = d3.rgb(255, 255, 204);
+        var color_b = d3.rgb(116, 169, 207);
+        var compute = d3.interpolate(color_a, color_b);
+        return compute(index);
+    }
+
     var rect = sel.selectAll(".node")
         .data(nodes(quadtree))
         .enter()
@@ -31,7 +68,9 @@ function drawQuad(sel, proj, kkData){
         .attr("x", function(d) { return d.x1; })
         .attr("y", function(d) { return d.y1; })
         .attr("width", function(d) { return d.x2 - d.x1; })
-        .attr("height", function(d) { return d.y2 - d.y1; });
+        .attr("height", function(d) { return d.y2 - d.y1; })
+        .style("fill", function(d, i){ return colorInterpolate(entropyScale(entropyArray[i]));})
+        .style("opacity", 0.3);
 
     var point = sel.selectAll(".point")
         .data(data)
@@ -126,7 +165,6 @@ function saveRegins(nodes, proj){
             leafNode.lat02 = latLng_02.lat;
             leafNode.lng02 = latLng_02.lng;
             leafNodes.push(leafNode);
-            console.log(leafNode.lat01+","+ leafNode.lng01+","+ leafNode.lat02+","+ leafNode.lng02);
         }
     }
     data.nodes = JSON.stringify(leafNodes);

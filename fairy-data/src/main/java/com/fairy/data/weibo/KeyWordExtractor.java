@@ -52,10 +52,11 @@ public class KeyWordExtractor {
                 for (Result s : list) {
                     keyWord = new KeyWord(s);
                     keyWordList.add(keyWord);
-//                    System.out.println(s.getTerm() + " : " + s.getFrequency() + " : " + s.getScore());
-//                    bw.write(s.getTerm() + " : " + s.getFrequency() + " : " + s.getScore());
-//                    bw.write("\n");
-//                    bw.flush();
+
+                    System.out.println(s.getTerm() + " : " + s.getFrequency() + " : " + s.getScore());
+                    bw.write(s.getTerm() + " : " + s.getFrequency() + " : " + s.getScore());
+                    bw.write("\n");
+                    bw.flush();
                 }
             }
         }

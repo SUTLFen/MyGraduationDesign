@@ -4,7 +4,8 @@
 }
 
 .point {
-    fill: green;
+    /*fill: green;*/
+    fill: red;
     stroke: #fff;
 }
 
@@ -22,7 +23,7 @@
 
 .node {
     fill: none;
-    stroke: #ff7115;
+    stroke: #494949;
     shape-rendering: crispEdges;
 }
 

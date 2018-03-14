@@ -17,12 +17,14 @@ public class GridEntropyCal {
 
     private String XMatrixPath = "fairy-data/data/XMatrix.json";
     private String gridVectorPath = "fairy-data/data/spatial/GridVector.json";
+    private String outPath = "fairy-data/data/spatial/GridVectorEntropy.json";
 
     private FileUtil fileUtil = FileUtil.getInstance();
 
     public void cal() throws IOException {
         int[][] XMatrix = JSONUtil.toXMatrix(XMatrixPath);
         List<GridVector> gridVectorList = JSONUtil.toGridVectorList(gridVectorPath);
+        List<GridVector> resultList = new ArrayList<>();
 
         List<MaxMin> MaxMinArray = findMaxMin(XMatrix);
 
@@ -30,12 +32,20 @@ public class GridEntropyCal {
         float entropy;
         int[] vectorCur = null;
         for (int i = 0; i < gridVectorList.size(); i++) {
+
             gridVectorCur = gridVectorList.get(i);
             vectorCur = gridVectorCur.getVectors();
+
             entropy = calEntropy(vectorCur, MaxMinArray);
 
+            System.out.println(entropy);
+            gridVectorCur.entropy = entropy;
+
+            resultList.add(gridVectorCur);
         }
 
+        String jsonStr = JSON.toJSONString(resultList, true);
+        fileUtil.saveToFile(outPath, jsonStr, false);
     }
 
     private float calEntropy(int[] vectorCur, List<MaxMin> maxMinArray) {
@@ -48,31 +58,37 @@ public class GridEntropyCal {
             int max = maxMinCur.getMax();
             int min = maxMinCur.getMin();
             nomarlizedVector[i] = (float) ((vectorCur[i] - min)/(max - min - 0.0));
+//            System.out.print(nomarlizedVector[i]+"  ");
         }
+//        System.out.println();
 
         //继续。。。和为1，
-        float[] nomarlizedVector02 = new float[nomarlizedVector.length];
-        float sum = 0.0f;
-        for (int j = 0; j < nomarlizedVector.length; j++) {
-            sum += nomarlizedVector[j];
-        }
-
-        for (int k = 0; k < nomarlizedVector.length; k++) {
-            nomarlizedVector02[k] = nomarlizedVector[k] / sum;
-        }
+//        float[] nomarlizedVector02 = new float[nomarlizedVector.length];
+//        float sum = 0.0f;
+//        for (int j = 0; j < nomarlizedVector.length; j++) {
+//            sum += nomarlizedVector[j];
+//        }
+//
+//        for (int k = 0; k < nomarlizedVector.length; k++) {
+//            nomarlizedVector02[k] = nomarlizedVector[k] / sum;
+//        }
 
 //       计算熵值
         float entropyValue = 0.0f;
-        for (int i = 0; i < nomarlizedVector02.length; i++) {
-            entropyValue += nomarlizedVector02[i] * Math.log(nomarlizedVector02[i]);
+        for (int i = 0; i < nomarlizedVector.length; i++) {
+            if (nomarlizedVector[i] != 0.0){
+                entropyValue += nomarlizedVector[i] * Math.log(nomarlizedVector[i]);
+            }
         }
 
         return entropyValue;
     }
 
     private List<MaxMin> findMaxMin(int[][] xMatrix) {
-        int poi_v = Integer.valueOf(ConfigUtil.getValue("poi_v",
-                "conf.properties"));
+
+        String valueStr = ConfigUtil.getValue("poi_v",
+                "conf.properties");
+        int poi_v = Integer.valueOf(valueStr);
 
         List<MaxMin> MaxMinList = new ArrayList<MaxMin>();
 

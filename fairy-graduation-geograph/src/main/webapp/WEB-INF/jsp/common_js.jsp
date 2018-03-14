@@ -20,6 +20,9 @@
 <script src="script/drawPolyline.js"></script>
 <script src="script/drawTimeView.js"></script>
 
+<%--绘制OD视图--%>
+<script src="script/drawODPattern.js"></script>
+
 <script src="script/index.js"></script>
 <script src="script/initMapWithGaode.js"></script>
 <script src="script/drawQuadTreeMap.js"></script>

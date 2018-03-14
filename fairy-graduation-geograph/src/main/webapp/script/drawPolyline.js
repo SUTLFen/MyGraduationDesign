@@ -4,15 +4,6 @@ var initSvgConfig = function () {
     margin_01 = {top: 10, right: 10, bottom: 20, left: 65};
     margin_02 = {top: 0, right: 10, bottom: 20, left: 65};
 
-    // timeSvg = d3.select(".bottom-container").append("svg")
-    //     .attr("width", $(".bottom-container").width()*0.988)
-    //     .attr("height", $(".bottom-container").height())
-    //     .attr("class", "timeSvg");
-    //
-    // var svgBoxWidth = $(".bottom-container").width();
-    // var svgBoxHeight = $(".bottom-container").height();
-
-
     timeSvg = d3.select(".time-box").append("svg")
         .attr("width", $(".time-box").width()*0.988)
         .attr("height", $(".time-box").height())
@@ -153,20 +144,10 @@ var drawTimeSvg = function(data) {
         startTime = new Date(brushExtent[0]);
         endTime = new Date(brushExtent[1]);
 
-        d3.json("../geograph/data/odLayout/ODPairIn0104_seg_01.json", function(data){
-        // d3.json("../geograph/data/odLayout/ODPairIn0101_seg_01.json", function(data){
-            drawODPattern(data, centoridArry);
+        //---------------------绘制OD视图-----------------
+        d3.json("../data/od/ODPairIn0101_seg_01.json", function(data){
+            drawODPattern(data);
         });
-
-        // $.ajax({
-        //     url: "ODLayoutDataProvider",
-        //     type: "post",
-        //     dataType: "json",
-        //     success: function(data){
-        //         drawODPattern(data, centoridArry);
-        //         // drawODLayout(data,centoridArry);
-        //     }
-        // });
 
         console.log(startTime.toLocaleDateString());
         console.log(endTime.toLocaleDateString());

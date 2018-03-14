@@ -12,7 +12,6 @@ function drawQuadTreeMap(){
 }
 
 
-
 //lat|lng ： 字符串型转数字
 function updateKKData(data, proj){
     var lat, lng;

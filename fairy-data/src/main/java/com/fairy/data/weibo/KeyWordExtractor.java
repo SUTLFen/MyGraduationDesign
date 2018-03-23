@@ -17,10 +17,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * 获取微博关键，以每日为单位
+ * 算法：TF-IDF
  */
 
 public class KeyWordExtractor {
@@ -31,7 +33,7 @@ public class KeyWordExtractor {
 
     public void initParam() throws IOException {
         indexPath = ConfigUtil.getValue("indexPath", "conf.properties");
-        indexReader = LuceneUtil.getIndexReader(indexPath + "\\2016-01-08");
+        indexReader = LuceneUtil.getIndexReader(indexPath + "\\2016-01-01");
     }
 
     public void extract() throws IOException {
@@ -44,28 +46,54 @@ public class KeyWordExtractor {
         File file = new File("fairy-data/data/weibo/keywords.txt");
         BufferedWriter bw = fileUtil.getBufferedWriter(file);
 
-        List<KeyWord> keyWordList = new ArrayList<KeyWord>();
+        List<KeyWord> keyWordList = null;
+        List<List<KeyWord>> result = new ArrayList<List<KeyWord>>();
         KeyWord keyWord = null;
+        Document docment = null;
+        String contentStr =  null;
+
+        List<KeyWord> result02 = new ArrayList<KeyWord>();
+
+        System.out.println(indexReader.maxDoc());
         for (int docId = 0; docId < indexReader.maxDoc(); docId++) {
-            list = extractor.extract(docId, 20, true);
+
+            docment = indexReader.document(docId);
+            contentStr = docment.getField(WeiboFields.content).stringValue();
+
+            System.out.println(docId +" : "+contentStr);
+
+            if(contentStr.trim().equals("")) {continue;}
+            if(docId == 1080 || docId == 1211 || docId == 1459) {continue;}
+
+            try{
+                list = extractor.extract(docId, 20, true);
+            }catch(Exception e){
+                list = null;
+            }
+
+            keyWordList = new ArrayList<KeyWord>();
+
             if (list != null) {
                 for (Result s : list) {
                     keyWord = new KeyWord(s);
                     keyWordList.add(keyWord);
 
                     System.out.println(s.getTerm() + " : " + s.getFrequency() + " : " + s.getScore());
-                    bw.write(s.getTerm() + " : " + s.getFrequency() + " : " + s.getScore());
-                    bw.write("\n");
-                    bw.flush();
                 }
+                System.out.println();
             }
+            result.add(keyWordList);
         }
 
-        String jsonStr = JSON.toJSONString(keyWordList, true);
-        fileUtil.saveToFile("fairy-data/data/weibo/keywords.json", jsonStr, false);
+        String jsonStr = JSON.toJSONString(result, true);
+        fileUtil.saveToFile("fairy-data/data/weibo/keywords0101.json", jsonStr, false);
     }
+
+
 
     public static void main(String[] args) throws IOException {
         new KeyWordExtractor().extract();
+//        System.out.println("\nhello");
     }
+
 }

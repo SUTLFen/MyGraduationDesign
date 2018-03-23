@@ -101,4 +101,6 @@ public class YMatrix0104 {
     public static void main(String[] args) throws IOException {
         new YMatrix0104().YMatrixGen();
     }
+
+
 }

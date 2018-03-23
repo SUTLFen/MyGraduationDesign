@@ -22,6 +22,8 @@
 
 <%--绘制OD视图--%>
 <script src="script/drawODPattern.js"></script>
+<%--绘制雷达图--%>
+<script src="script/drawRadarView.js"></script>
 
 <script src="script/index.js"></script>
 <script src="script/initMapWithGaode.js"></script>

@@ -39,6 +39,23 @@ public class LuceneUtil {
         return iwriter;
     }
 
+
+    public static IndexWriter getAnalyzerIndexWriter(String indexPath ) throws IOException {
+        Path path = Paths.get(indexPath);
+        File fileTemp = path.toFile();
+        if(!fileTemp.exists()) fileTemp.mkdir();
+
+        Directory directory = FSDirectory.open(Paths.get(fileTemp.getAbsolutePath()));
+        Analyzer ikAnalyzer =  new IKAnalyzer(true);
+        IndexWriterConfig iwc = new IndexWriterConfig(ikAnalyzer);
+        iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+        iwc.setRAMBufferSizeMB(100);
+        IndexWriter iwriter = new IndexWriter(directory, iwc);
+        return iwriter;
+    }
+
+
+
     public static IndexReader getIndexReader(String indexPath) throws IOException {
         Directory directory = FSDirectory.open(Paths.get(indexPath));
         IndexReader indexReader = DirectoryReader.open(directory);

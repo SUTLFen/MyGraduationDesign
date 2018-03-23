@@ -1,4 +1,4 @@
-package com.fairy.index;
+package com.fairy.indexing;
 
 import com.fairy.pojo.Weibo;
 import com.fairy.pojo.WeiboFields;
@@ -47,17 +47,33 @@ public class IndexWeiboCore {
             indexFileName = extractDayStr(weiboFiles[i].getName());
             indexWriter = luceneUtil.getAnalyzerIndexWriter(outPath, indexFileName);
 
+            String regexStr = "(http?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]";
+            regexStr = regexStr + "|" + "\\[.*]";
+            String content = null;
             while ((line = br.readLine()) != null) {
                 strs = line.split("\\t");
                 weibo = weibo.create(strs);
                 if(weibo != null){
+
+                    updateWeiboContent(weibo, regexStr);
+                    System.out.println(weibo.getContent());
+
+                    if(weibo.getContent().equals(""))
                     doc = createDoc(weibo);
+
                     indexWriter.addDocument(doc);
                 }
             }
             indexWriter.close();
         }
         System.out.println("索引创建成功。。。");
+    }
+
+
+    private void updateWeiboContent(Weibo weibo, String regexStr) {
+        String contentStr = weibo.getContent();
+        contentStr = contentStr.trim();
+        weibo.setContent(contentStr.replaceAll(regexStr, ""));
     }
 
     private String extractDayStr(String name) {
@@ -70,12 +86,6 @@ public class IndexWeiboCore {
         return resultStr;
     }
 
-    public static void main(String[] args) {
-        File file = new File("hangzhou-2016-01-01 19-00-00.txt");
-        System.out.println(file.getName());
-        String str = new IndexWeiboCore().extractDayStr(file.getName());
-        System.out.println(str);
-    }
 
     private Document createDoc(Weibo weibo) {
         Document doc = new Document();
@@ -100,8 +110,8 @@ public class IndexWeiboCore {
     }
 
 
-//    public static void main(String[] args) throws IOException, ParseException {
-//        new IndexWeiboCore().indexWeibo();
-//    }
+    public static void main(String[] args) throws IOException, ParseException {
+        new IndexWeiboCore().indexWeibo();
+    }
 
 }

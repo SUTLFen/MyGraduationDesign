@@ -12,7 +12,7 @@
     .legend {
         border: 1px solid #555555;
         border-radius: 5px 5px 5px 5px;
-        font-size: 0.8em;
+        font-score: 0.8em;
         margin: 10px;
         padding: 8px;
     }
@@ -32,7 +32,7 @@
     d3.json("../../fairy-data/data/weibo/keywords.json", function(frequency_list){
 
          frequency_list = frequency_list.map(function(d, i){
-            d.size = d.size * 10 ;
+            d.score = d.score * 10 ;
             return d;
          });
 
@@ -43,10 +43,10 @@
             .range(["#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#444", "#333", "#222"]);
 
         // [800, 300]
-        d3.layout.cloud().size([width, height])
+        d3.layout.cloud().score([width, height])
             .words(frequency_list)
             .rotate(0)
-            .fontSize(function(d) { return d.size; })
+            .fontSize(function(d) { return d.score; })
             .on("end", draw)
             .start();
 
@@ -61,32 +61,32 @@
                 // without the transform, words words would get cutoff to the left and top, they would
                 // appear outside of the SVG area
                 .attr("transform", "translate(320,200)")
-                .selectAll("text")
+                .selectAll("word")
                 .data(words)
-                .enter().append("text")
-                .style("font-size", function(d) { return d.size + "px"; })
+                .enter().append("word")
+                .style("font-score", function(d) { return d.score + "px"; })
                 .style("fill", function(d, i) { return color(i); })
                 .attr("transform", function(d) {
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                 })
-                .text(function(d) { return d.text; });
+                .word(function(d) { return d.word; });
         }
     });
 
     var frequency_list = [
-        {"text":"study","size":40},
-        {"text":"motion","size":15},
-        {"text":"forces","size":10},
-        {"text":"electricity","size":15},
-        {"text":"movement","size":10},
-        {"text":"relation","size":5},
-        {"text":"things","size":10},
-        {"text":"force","size":5},{"text":"ad","size":5},{"text":"energy","size":85},
-        {"text":"living","size":5},{"text":"nonliving","size":5},{"text":"laws","size":15},
-        {"text":"speed","size":45},{"text":"velocity","size":30},{"text":"define","size":5},
-        {"text":"constraints","size":5},{"text":"universe","size":10},{"text":"physics","size":120},
-        {"text":"describing","size":5},{"text":"matter","size":90},{"text":"physics-the","size":5},
-        {"text":"world","size":10},{"text":"works","size":10},{"text":"science","size":70},{"text":"interactions","size":30},{"text":"studies","size":5},{"text":"properties","size":45},{"text":"nature","size":40},{"text":"branch","size":30},{"text":"concerned","size":25},{"text":"source","size":40},{"text":"google","size":10},{"text":"defintions","size":5},{"text":"two","size":15},{"text":"grouped","size":15},{"text":"traditional","size":15},{"text":"fields","size":15},{"text":"acoustics","size":15},{"text":"optics","size":15},{"text":"mechanics","size":20},{"text":"thermodynamics","size":15},{"text":"electromagnetism","size":15},{"text":"modern","size":15},{"text":"extensions","size":15},{"text":"thefreedictionary","size":15},{"text":"interaction","size":15},{"text":"org","size":25},{"text":"answers","size":5},{"text":"natural","size":15},{"text":"objects","size":5},{"text":"treats","size":10},{"text":"acting","size":5},{"text":"department","size":5},{"text":"gravitation","size":5},{"text":"heat","size":10},{"text":"light","size":10},{"text":"magnetism","size":10},{"text":"modify","size":5},{"text":"general","size":10},{"text":"bodies","size":5},{"text":"philosophy","size":5},{"text":"brainyquote","size":5},{"text":"words","size":5},{"text":"ph","size":5},{"text":"html","size":5},{"text":"lrl","size":5},{"text":"zgzmeylfwuy","size":5},{"text":"subject","size":5},{"text":"distinguished","size":5},{"text":"chemistry","size":5},{"text":"biology","size":5},{"text":"includes","size":5},{"text":"radiation","size":5},{"text":"sound","size":5},{"text":"structure","size":5},{"text":"atoms","size":5},{"text":"including","size":10},{"text":"atomic","size":10},{"text":"nuclear","size":10},{"text":"cryogenics","size":10},{"text":"solid-state","size":10},{"text":"particle","size":10},{"text":"plasma","size":10},{"text":"deals","size":5},{"text":"merriam-webster","size":5},{"text":"dictionary","size":10},{"text":"analysis","size":5},{"text":"conducted","size":5},{"text":"order","size":5},{"text":"understand","size":5},{"text":"behaves","size":5},{"text":"en","size":5},{"text":"wikipedia","size":5},{"text":"wiki","size":5},{"text":"physics-","size":5},{"text":"physical","size":5},{"text":"behaviour","size":5},{"text":"collinsdictionary","size":5},{"text":"english","size":5},{"text":"time","size":35},{"text":"distance","size":35},{"text":"wheels","size":5},{"text":"revelations","size":5},{"text":"minute","size":5},{"text":"acceleration","size":20},{"text":"torque","size":5},{"text":"wheel","size":5},{"text":"rotations","size":5},{"text":"resistance","size":5},{"text":"momentum","size":5},{"text":"measure","size":10},{"text":"direction","size":10},{"text":"car","size":5},{"text":"add","size":5},{"text":"traveled","size":5},{"text":"weight","size":5},{"text":"electrical","size":5},{"text":"power","size":5}];
+        {"word":"study","score":40},
+        {"word":"motion","score":15},
+        {"word":"forces","score":10},
+        {"word":"electricity","score":15},
+        {"word":"movement","score":10},
+        {"word":"relation","score":5},
+        {"word":"things","score":10},
+        {"word":"force","score":5},{"word":"ad","score":5},{"word":"energy","score":85},
+        {"word":"living","score":5},{"word":"nonliving","score":5},{"word":"laws","score":15},
+        {"word":"speed","score":45},{"word":"velocity","score":30},{"word":"define","score":5},
+        {"word":"constraints","score":5},{"word":"universe","score":10},{"word":"physics","score":120},
+        {"word":"describing","score":5},{"word":"matter","score":90},{"word":"physics-the","score":5},
+        {"word":"world","score":10},{"word":"works","score":10},{"word":"science","score":70},{"word":"interactions","score":30},{"word":"studies","score":5},{"word":"properties","score":45},{"word":"nature","score":40},{"word":"branch","score":30},{"word":"concerned","score":25},{"word":"source","score":40},{"word":"google","score":10},{"word":"defintions","score":5},{"word":"two","score":15},{"word":"grouped","score":15},{"word":"traditional","score":15},{"word":"fields","score":15},{"word":"acoustics","score":15},{"word":"optics","score":15},{"word":"mechanics","score":20},{"word":"thermodynamics","score":15},{"word":"electromagnetism","score":15},{"word":"modern","score":15},{"word":"extensions","score":15},{"word":"thefreedictionary","score":15},{"word":"interaction","score":15},{"word":"org","score":25},{"word":"answers","score":5},{"word":"natural","score":15},{"word":"objects","score":5},{"word":"treats","score":10},{"word":"acting","score":5},{"word":"department","score":5},{"word":"gravitation","score":5},{"word":"heat","score":10},{"word":"light","score":10},{"word":"magnetism","score":10},{"word":"modify","score":5},{"word":"general","score":10},{"word":"bodies","score":5},{"word":"philosophy","score":5},{"word":"brainyquote","score":5},{"word":"words","score":5},{"word":"ph","score":5},{"word":"html","score":5},{"word":"lrl","score":5},{"word":"zgzmeylfwuy","score":5},{"word":"subject","score":5},{"word":"distinguished","score":5},{"word":"chemistry","score":5},{"word":"biology","score":5},{"word":"includes","score":5},{"word":"radiation","score":5},{"word":"sound","score":5},{"word":"structure","score":5},{"word":"atoms","score":5},{"word":"including","score":10},{"word":"atomic","score":10},{"word":"nuclear","score":10},{"word":"cryogenics","score":10},{"word":"solid-state","score":10},{"word":"particle","score":10},{"word":"plasma","score":10},{"word":"deals","score":5},{"word":"merriam-webster","score":5},{"word":"dictionary","score":10},{"word":"analysis","score":5},{"word":"conducted","score":5},{"word":"score","score":5},{"word":"understand","score":5},{"word":"behaves","score":5},{"word":"en","score":5},{"word":"wikipedia","score":5},{"word":"wiki","score":5},{"word":"physics-","score":5},{"word":"physical","score":5},{"word":"behaviour","score":5},{"word":"collinsdictionary","score":5},{"word":"english","score":5},{"word":"time","score":35},{"word":"distance","score":35},{"word":"wheels","score":5},{"word":"revelations","score":5},{"word":"minute","score":5},{"word":"acceleration","score":20},{"word":"torque","score":5},{"word":"wheel","score":5},{"word":"rotations","score":5},{"word":"resistance","score":5},{"word":"momentum","score":5},{"word":"measure","score":10},{"word":"direction","score":10},{"word":"car","score":5},{"word":"add","score":5},{"word":"traveled","score":5},{"word":"weight","score":5},{"word":"electrical","score":5},{"word":"power","score":5}];
 
 </script>
 

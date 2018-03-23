@@ -2,32 +2,42 @@ package com.fairy.pojo;
 
 import com.fairy.hotword.Result;
 
-public class KeyWord {
+public class KeyWord implements Comparable<KeyWord>{
 
-    private String text;
-    private double size;
+    private String word;
+    private Float score;
 
     public KeyWord() {
     }
 
     public KeyWord(Result s) {
-       this.text = s.getTerm();
-       this.size = s.getScore();
+       this.word = s.getTerm();
+       this.score = s.getScore();
     }
 
-    public String getText() {
-        return text;
+    public String getWord() {
+        return word;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setWord(String word) {
+        this.word = word;
     }
 
-    public double getSize() {
-        return size;
+    public Float getScore() {
+        return score;
     }
 
-    public void setSize(double size) {
-        this.size = size;
+    public void setScore(Float score) {
+        this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return this.word + ": " + this.score;
+    }
+
+    @Override
+    public int compareTo(KeyWord keyWord02) {
+        return keyWord02.getScore().compareTo(this.score);
     }
 }

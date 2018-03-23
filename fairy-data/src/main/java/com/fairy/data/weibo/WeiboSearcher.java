@@ -26,6 +26,7 @@ public class WeiboSearcher {
         Analyzer ikAnalyzer =  new IKAnalyzer(true);
 
         QueryParser parser = new QueryParser(WeiboFields.content, ikAnalyzer);
+
         Query query = parser.parse("堵");
 
         ScoreDoc[] hits = indexSearcher.search(query, 1000, null).scoreDocs;

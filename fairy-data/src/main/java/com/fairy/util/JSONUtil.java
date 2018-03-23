@@ -53,4 +53,12 @@ public class JSONUtil {
         List<GridVector> gridVectorList = JSON.parseArray(jsonStr, GridVector.class);
         return gridVectorList;
     }
+
+    //关键字json
+    public static List<String> toKeyWordList(String keyWordPath) throws IOException {
+        String jsonStr = fileUtil.readJsonFileToStr(new File(keyWordPath));
+        List<String> keyWordList = JSON.parseArray(jsonStr, String.class);
+        return keyWordList;
+    }
+
 }

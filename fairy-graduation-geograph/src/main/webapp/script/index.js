@@ -7,4 +7,6 @@ $(function(){
     //绘制时序图   参数：.csv文件
     drawTimeView();
 
+    drawRadarView(data);
+
 });

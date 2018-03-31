@@ -21,6 +21,8 @@ import java.util.Set;
 /**
  * 把微博分词，并由空格分开，最后为LDA4j-master所用
  */
+
+@Deprecated
 public class WeiboProcessor {
 
     private String  indexPath;

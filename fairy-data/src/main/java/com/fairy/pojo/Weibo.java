@@ -46,9 +46,8 @@ public class Weibo {
         if (StringUtils.isBlank(strs[3]) || StringUtils.isBlank(strs[4])) return null;
 
         Weibo weibo = new Weibo();
+
         weibo.setId(strs[0]);
-
-
         weibo.setTime(dateUtil.getTime(strs[1], true));
 
 
@@ -58,12 +57,10 @@ public class Weibo {
         weibo.setCityId(strs[14]);
         weibo.setLocation(strs[15]);
 
-        weibo.setLongitude(Double.valueOf(strs[3]));
-        weibo.setLatitude(Double.valueOf(strs[4]));
-
+        weibo.setLatitude(Double.valueOf(strs[3]));
+        weibo.setLongitude(Double.valueOf(strs[4]));
 
         return weibo;
-
     }
 
     public String getId() {

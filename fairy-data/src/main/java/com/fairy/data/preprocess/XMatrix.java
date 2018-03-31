@@ -23,6 +23,8 @@ public class XMatrix {
     private String poiPath = ConfigUtil.getValue("poiPath", "conf.properties");
     private String poiSimplePath = ConfigUtil.getValue("poiSimplePath", "conf.properties");
     private String gridPath = ConfigUtil.getValue("gridPath", "conf.properties");
+    private String outPath = "fairy-data/data/preprocess/0101/XMatrix.json";
+
     private FileUtil fileUtil = FileUtil.getInstance();
     private int poi_v;
 
@@ -57,7 +59,7 @@ public class XMatrix {
         }
 
         String jsonStr = JSON.toJSONString(matrixX);
-        fileUtil.saveToFile("fairy-data/data/XMatrix.json", jsonStr, false);
+        fileUtil.saveToFile(outPath, jsonStr, false);
     }
 
     /**
@@ -98,9 +100,7 @@ public class XMatrix {
     }
 
     public static void main(String[] args) throws IOException {
-//        new XMatrix().XMatrixGen();
-//        new XMatrix().simplePOIData();
-        new XMatrix().collectPOIType();
+        new XMatrix().XMatrixGen();
     }
 
     private void collectPOIType() throws IOException {

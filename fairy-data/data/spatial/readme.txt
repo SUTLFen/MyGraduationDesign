@@ -1,0 +1,1 @@
+GridVectorNormal.json : 区域Grid特征向量max-min标准化

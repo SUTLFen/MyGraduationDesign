@@ -1,0 +1,39 @@
+
+.weibo-content-box {
+    width: 100%;
+    height:49%;
+
+    overflow: auto;
+
+    margin:1% 0 0 0;
+    padding:0;
+}
+
+ul {
+    list-style-type: none;
+    /*width: 100%;*/
+    margin : 0;
+    padding: 10px 10px 0 10px;
+    /*padding:20px;*/
+    /*overflow: scroll;*/
+}
+
+ul li {
+    /*padding: 10px;*/
+    padding: 0 10px 0 10px;
+
+}
+
+ul li:hover {
+    background: #eee;
+    cursor: pointer;
+}
+
+/*显示微博发布时间*/
+.content-time-box{
+    text-align: right;
+}
+.content-time-box p{
+    font: 200 12px/1.5 Georgia, Times New Roman, serif;
+}
+

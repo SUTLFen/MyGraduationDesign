@@ -55,10 +55,10 @@ public class IndexWeiboCore {
                 weibo = weibo.create(strs);
                 if(weibo != null){
 
+                    //去除表情和微博中的url
                     updateWeiboContent(weibo, regexStr);
-                    System.out.println(weibo.getContent());
 
-                    if(weibo.getContent().equals(""))
+                    if(weibo.getContent().equals("")) continue;
                     doc = createDoc(weibo);
 
                     indexWriter.addDocument(doc);
@@ -90,7 +90,8 @@ public class IndexWeiboCore {
     private Document createDoc(Weibo weibo) {
         Document doc = new Document();
         doc.add(new Field(WeiboFields.id, weibo.id, StringField.TYPE_STORED));
-        doc.add(new DoublePoint(WeiboFields.time, weibo.time));
+        doc.add(new LongPoint(WeiboFields.time, weibo.time));
+        doc.add(new StoredField(WeiboFields.time, weibo.time));
 
         FieldType type = new FieldType();
         type.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
@@ -101,7 +102,11 @@ public class IndexWeiboCore {
         doc.add(new Field(WeiboFields.content, weibo.content, type));
 
         doc.add(new DoublePoint(WeiboFields.longitude, weibo.longitude));
+        doc.add(new StoredField(WeiboFields.longitude, weibo.longitude));
+
         doc.add(new DoublePoint(WeiboFields.latitude, weibo.latitude));
+        doc.add(new StoredField(WeiboFields.latitude, weibo.latitude));
+
         doc.add(new Field(WeiboFields.locationName, weibo.locationName, StringField.TYPE_STORED));
         doc.add(new Field(WeiboFields.provinceId, weibo.provinceId, StringField.TYPE_STORED));
         doc.add(new Field(WeiboFields.cityId, weibo.cityId, StringField.TYPE_STORED));

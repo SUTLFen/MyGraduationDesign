@@ -13,6 +13,7 @@ import java.io.IOException;
 /**
  * 处理微博content字段，将其中的url和表情去掉。
  */
+@Deprecated
 public class UpdateWeiboIndexCore {
 
 

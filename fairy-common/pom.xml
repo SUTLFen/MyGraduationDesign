@@ -42,7 +42,7 @@
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
-            <version>RELEASE</version>
+            <!--<version>RELEASE</version>-->
         </dependency>
         <dependency>
             <groupId>org.elasticsearch</groupId>

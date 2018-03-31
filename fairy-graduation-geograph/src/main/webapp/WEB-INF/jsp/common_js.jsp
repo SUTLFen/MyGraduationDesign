@@ -23,12 +23,21 @@
 <%--绘制OD视图--%>
 <script src="script/drawODPattern.js"></script>
 <%--绘制雷达图--%>
+
 <script src="script/drawRadarView.js"></script>
+
+<%--显示词云窗口--%>
+<script src="script/showWordCloud.js"></script>
+
+<%--手风琴菜单--%>
+<script src="script/shoufenqin.js"></script>
+
 
 <script src="script/index.js"></script>
 <script src="script/initMapWithGaode.js"></script>
 <script src="script/drawQuadTreeMap.js"></script>
 <script src="script/drawQuadTreeMap_02.js"></script>
 <script src="script/queue.js"></script>
+
 
 

@@ -2,10 +2,7 @@ package com.fairy.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.fairy.pojo.Grid;
-import com.fairy.pojo.GridVector;
-import com.fairy.pojo.KK;
-import com.fairy.pojo.POI;
+import com.fairy.pojo.*;
 import com.fairy.utils.FileUtil;
 
 import java.io.File;
@@ -48,6 +45,7 @@ public class JSONUtil {
         return XMatrix;
     }
 
+    //GridVector
     public static List<GridVector> toGridVectorList(String gridVectorPath) throws IOException {
         String jsonStr = fileUtil.readJsonFileToStr(new File(gridVectorPath));
         List<GridVector> gridVectorList = JSON.parseArray(jsonStr, GridVector.class);
@@ -59,6 +57,21 @@ public class JSONUtil {
         String jsonStr = fileUtil.readJsonFileToStr(new File(keyWordPath));
         List<String> keyWordList = JSON.parseArray(jsonStr, String.class);
         return keyWordList;
+    }
+
+    //weibo
+    public static List<Weibo> toWeiboList(String weiboPath) throws IOException {
+        String jsonStr = fileUtil.readJsonFileToStr(new File(weiboPath));
+        List<Weibo> weiboList = JSON.parseArray(jsonStr, Weibo.class);
+        return weiboList;
+    }
+
+    //ATensor
+    public static List<List<Integer>> toATensor(String ATensorPath) throws IOException {
+        String jsonStr = fileUtil.readJsonFileToStr(new File(ATensorPath));
+        List<List<Integer>> ATensor = JSON.parseObject(jsonStr,
+                new TypeReference<List<List<Integer>>>(){});
+        return ATensor;
     }
 
 }

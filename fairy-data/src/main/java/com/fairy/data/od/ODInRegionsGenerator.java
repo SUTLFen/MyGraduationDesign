@@ -15,13 +15,21 @@ import java.util.List;
 /**
  * Created by Fairy_LFen on 2017/6/28.
  * 区域OD流量
+ *
+ * seg_01 06:00:00-10:59:59  早高峰
+ * seg_02 11:00:00-16:59:59
+ * seg_03 17:00:00-19:59:59   晚高峰
+ * seg_04 20:00:00-23:59:59
+ *
+ * seg_0*中json文件，是将此时间段内的OD流量分别存在5个文件中，
+ * 而此项工作在于将分别存储的OD流量存与一个文件 （Result存放结果）
  */
 public class ODInRegionsGenerator {
 
     private String dataStr = "data_0104", segStr = "seg_04";
 
     private String rawPath_ODPair = "fairy-data\\data\\od\\"+dataStr+"\\"+ segStr;
-    private String outPath_ODInRegions = "fairy-data\\data\\od\\"+dataStr+"\\result\\ODPairIn0101_"+segStr+".json";
+    private String outPath_ODInRegions = "fairy-data\\data\\od\\"+dataStr+"\\result\\ODPairIn0104_"+segStr+".json";
 
     private String regionsPath = "fairy-data/data/spatial/regions.json";
 

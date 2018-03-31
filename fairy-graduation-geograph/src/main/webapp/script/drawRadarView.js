@@ -30,9 +30,11 @@ var calVectorArevageVal = function (datap) {
 };
 var formatData = function(data, titles){
     var i, j, radarData = [];
+
     for(i = 0 ; i < data.length; i++){
         var radarDataItem = [];
-        var arg_vector = calVectorArevageVal(data[i]);
+        // var arg_vector = calVectorArevageVal(data[i]);
+        var arg_vector = data[i];
 
         for(var j = 0; j < arg_vector.length; j++){
             var element = new Object();
@@ -47,21 +49,25 @@ var formatData = function(data, titles){
 }
 
 var initTitleArray = function () {
-    var titles = ["汽车服务", "汽车销售", "汽车维修", "摩托车服务", "餐饮服务", "购物服务",
-    "生活服务", "体育休闲服务", "医疗保健服务", "住宿服务", "风景名胜", "商务住宅",
-    "政府机构及社会团体", "科教文化服务", "交通设施服务", "金融保险服务", "公司企业", "道路附属设施",
-    "地名地址信息", "公共设施"];
+    var titles = ["餐饮", "购物", "生活", "体育休闲",
+        "医疗保健", "住宿", "风景名胜", "商务住宅", "政府机构",
+        "科教文化", "交通设施", "金融保险", "公司企业"];
+
+ // var titles = ["餐饮服务", "购物服务", "生活服务", "体育休闲服务",
+ //        "医疗保健服务", "住宿服务", "风景名胜", "商务住宅", "政府机构及社会团体",
+ //        "科教文化服务", "交通设施服务", "金融保险服务", "公司企业"];
 
     return titles;
 };
-var generateColor = function (clusters) {
+var generateColor = function (data) {
     // var colorInterp = d3.interpolate(d3.rgb(2, 239, 255), d3.rgb(255, 31, 14));
     var colorArry = [];
 
     var linear = d3.scale.linear()
-        .domain([0, clusters.length-1])
+        .domain([0, data.length-1])
         .range([0, 1]);
-    for(var i = 0; i < clusters.length; i++){
+
+    for(var i = 0; i < data.length; i++){
         // colorArry.push(colorInterp(i));
         colorArry.push("hsl(" + linear(i) * 360 + ",100%,50%)");
     }
@@ -74,20 +80,22 @@ var generateColor = function (clusters) {
 
     return colorArry;
 };
-var showRadarView = function(data){
+var drawRadarView = function(data){
     //data : 二维数组，每一维包含一个聚簇
     var titles = initTitleArray(),
         radarData = formatData(data, titles),
 
-        margin = {top: 65, right: 50, bottom: 65, left: 50},
+        // margin = {top: 65, right: 50, bottom: 65, left: 50},
+        margin = {top: 35, right: 10, bottom: 30, left: 10},
         width = $(".radar-view-box").width() - margin.left - margin.right,
         height = $(".radar-view-box").height() - margin.bottom - margin.top;
+
 
     var color = generateColor(data);
 
     var radarChartOptions = {
-        w: width,
-        h: height,
+        w: 350,
+        h: 235,
         margin: margin,
         maxValue: 1,
         levels: 10,

@@ -31,6 +31,8 @@ public class KeyWordExtractor {
     private IndexReader indexReader = null;
     private FileUtil fileUtil = FileUtil.getInstance();
 
+    private String outPath = "fairy-data/data/weibo/0101/keywords0101.json";
+
     public void initParam() throws IOException {
         indexPath = ConfigUtil.getValue("indexPath", "conf.properties");
         indexReader = LuceneUtil.getIndexReader(indexPath + "\\2016-01-01");
@@ -43,11 +45,11 @@ public class KeyWordExtractor {
         HotWordExtractor extractor = new HotWordExtractor(indexReader);
         List<Result> list = null;
 
-        File file = new File("fairy-data/data/weibo/keywords.txt");
-        BufferedWriter bw = fileUtil.getBufferedWriter(file);
+//        File file = new File("fairy-data/data/weibo/keywords.txt");
+//        BufferedWriter bw = fileUtil.getBufferedWriter(file);
 
-        List<KeyWord> keyWordList = null;
-        List<List<KeyWord>> result = new ArrayList<List<KeyWord>>();
+        List<KeyWord> keyWordList = null;  //每条微博中的关键词
+        List<List<KeyWord>> result = new ArrayList<List<KeyWord>>();  //所有微博的关键词
         KeyWord keyWord = null;
         Document docment = null;
         String contentStr =  null;
@@ -59,8 +61,6 @@ public class KeyWordExtractor {
 
             docment = indexReader.document(docId);
             contentStr = docment.getField(WeiboFields.content).stringValue();
-
-            System.out.println(docId +" : "+contentStr);
 
             if(contentStr.trim().equals("")) {continue;}
             if(docId == 1080 || docId == 1211 || docId == 1459) {continue;}
@@ -86,7 +86,7 @@ public class KeyWordExtractor {
         }
 
         String jsonStr = JSON.toJSONString(result, true);
-        fileUtil.saveToFile("fairy-data/data/weibo/keywords0101.json", jsonStr, false);
+        fileUtil.saveToFile(outPath, jsonStr, false);
     }
 
 

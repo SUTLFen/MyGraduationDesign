@@ -1,4 +1,5 @@
 $(function(){
+
     initMapWithGaode();
 
     //四叉树，分割地图
@@ -7,6 +8,9 @@ $(function(){
     //绘制时序图   参数：.csv文件
     drawTimeView();
 
-    drawRadarView(data);
+    //绘制雷达视图
+    d3.json("../data/GridVectorNormal.json", function(data){
+        drawRadarView(data);
+    });
 
 });

@@ -11,7 +11,7 @@ import java.io.*;
 
 public class SaveRegionServlet extends HttpServlet implements Servlet{
     private FileUtil fileUtil = FileUtil.getInstance();
-    private String outPath = "E:\\01_IdeaProject\\MyGraduationDesign\\fairy-graduation-geograph\\data\\regions.json";
+    private String outPath = "fairy-graduation-geograph/data/regions.json";
 
 //    public static void main(String[] args) throws ServletException, IOException {
 //        new SaveRegionServlet().test();

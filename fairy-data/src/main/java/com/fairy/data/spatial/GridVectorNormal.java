@@ -1,7 +1,6 @@
 package com.fairy.data.spatial;
 
 import com.alibaba.fastjson.JSON;
-import com.fairy.pojo.Grid;
 import com.fairy.pojo.GridVector;
 import com.fairy.pojo.MaxMin;
 import com.fairy.util.ConfigUtil;
@@ -12,43 +11,48 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridEntropyCal {
+/**
+ * 对Grid（区域）特征向量进行max-min标准化
+ */
+public class GridVectorNormal {
 
 
     private String XMatrixPath = "fairy-data/data/XMatrix.json";
     private String gridVectorPath = "fairy-data/data/spatial/GridVector.json";
-    private String outPath = "fairy-data/data/spatial/GridVectorEntropy.json";
+    private String outPath = "fairy-data/data/spatial/GridVectorNormal.json";
+
+    private final int dimension_poi = Integer.valueOf(ConfigUtil.getValue("poi_v",
+            "conf.properties"));
 
     private FileUtil fileUtil = FileUtil.getInstance();
 
-    public void cal() throws IOException {
+    public void normalize() throws IOException {
         int[][] XMatrix = JSONUtil.toXMatrix(XMatrixPath);
         List<GridVector> gridVectorList = JSONUtil.toGridVectorList(gridVectorPath);
-        List<GridVector> resultList = new ArrayList<>();
-
         List<MaxMin> MaxMinArray = findMaxMin(XMatrix);
 
         GridVector gridVectorCur = null;
         float entropy;
         int[] vectorCur = null;
+
+        List<float[]> resultList = new ArrayList<float[]>();
+        float[] vectorNormalized = null;
+
         for (int i = 0; i < gridVectorList.size(); i++) {
 
             gridVectorCur = gridVectorList.get(i);
             vectorCur = gridVectorCur.getVectors();
+            System.out.println(vectorCur);
 
-            entropy = calEntropy(vectorCur, MaxMinArray);
-
-            System.out.println(entropy);
-            gridVectorCur.entropy = entropy;
-
-            resultList.add(gridVectorCur);
+            vectorNormalized = normalizedSingleGridVector(vectorCur, MaxMinArray);
+            resultList.add(vectorNormalized);
         }
 
         String jsonStr = JSON.toJSONString(resultList, true);
         fileUtil.saveToFile(outPath, jsonStr, false);
     }
 
-    private float calEntropy(int[] vectorCur, List<MaxMin> maxMinArray) {
+    private float[] normalizedSingleGridVector(int[] vectorCur, List<MaxMin> maxMinArray) {
 
         //特征向量标准化
         float[] nomarlizedVector = new float[vectorCur.length];
@@ -61,15 +65,7 @@ public class GridEntropyCal {
 //            System.out.print(nomarlizedVector[i]+"  ");
         }
 
-//       计算熵值
-        float entropyValue = 0.0f;
-        for (int i = 0; i < nomarlizedVector.length; i++) {
-            if (nomarlizedVector[i] != 0.0){
-                entropyValue += nomarlizedVector[i] * Math.log(nomarlizedVector[i]);
-            }
-        }
-
-        return entropyValue;
+        return nomarlizedVector;
     }
 
     private List<MaxMin> findMaxMin(int[][] xMatrix) {
@@ -105,8 +101,9 @@ public class GridEntropyCal {
         return  MaxMinList;
     }
 
-
     public static void main(String[] args) throws IOException {
-        new GridEntropyCal().cal();
+        new GridVectorNormal().normalize();
     }
+
 }
+

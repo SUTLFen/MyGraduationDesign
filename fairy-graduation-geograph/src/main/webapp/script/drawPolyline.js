@@ -145,13 +145,20 @@ var drawTimeSvg = function(data) {
         endTime = new Date(brushExtent[1]);
 
         //---------------------绘制OD视图-----------------
-        d3.json("../data/od/ODPairIn0101_seg_01.json", function(data){
+        // d3.json("../data/od/ODPairIn0104_seg_01.json", function(data){ //工作日01-04早高峰
+        // d3.json("../data/od/ODPairIn0104_seg_03.json", function(data){   //工作日01-04晚高峰
+
+        d3.json("../data/od/ODPairIn0101_seg_01.json", function(data){ //节假日01-01早高峰
+        // d3.json("../data/od/ODPairIn0101_seg_03.json", function(data){   //节假日01-01晚高峰
             drawODPattern(data);
         });
+
 
         console.log(startTime.toLocaleDateString());
         console.log(endTime.toLocaleDateString());
 
+
+    //    绘制词云，所有区域的此阶段
 
     }
 }

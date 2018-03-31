@@ -1,7 +1,7 @@
 package com.fairy.pojo;
 
 public class Grid {
-    public double lat01;  // lat01 lng01 : 左上角
+    public double lat01;  // lat01 lng01 : 左上角   (lng01 < lng02), (lat02 < lat01)
     public double lng01;
     public double lat02;    // lat02 lng02 : 右下角
     public double lng02;

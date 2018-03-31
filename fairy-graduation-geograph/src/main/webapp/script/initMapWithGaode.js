@@ -6,7 +6,8 @@ function initMapWithGaode() {
     var normal = L.layerGroup([normalm]);
 
     map = L.map("map",{
-        center:[30.3, 120.2],
+        // center:[30.3, 120.2],
+        center:[30.23, 120.2],
         zoom: 11,
         layers:[normal],
         zoomControl:false
@@ -16,8 +17,4 @@ function initMapWithGaode() {
         zoomInTitle: '放大',
         zoomOutTitle: '缩小'
     }).addTo(map);
-
-    // var control = L.control.selectBox({modal: true});
-    //
-    // map.addControl(control);
 }

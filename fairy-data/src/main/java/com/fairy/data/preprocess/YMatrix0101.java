@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class YMatrix0101 {
     private String prCarDir = "fairy-data/data/01_PrCarNew";
-    private String YMatrixPath = "fairy-data/data/YMatrix0101.json";
+    private String YMatrixPath = "fairy-data/data/preprocess/0101/YMatrix0101.json";
     private String gridsPath;
     private int time_v; //时间维度
 

@@ -60,17 +60,54 @@ function drawQuad(sel, proj, kkData){
         return compute(index);
     }
 
+
+    function initAreClickedArry(length){
+        var arry = new Array(length);
+        for(var i = 0; i < length; i++){
+            arry[i] = 0;
+        }
+        return arry;
+    }
+    var areaClickedAryy = initAreClickedArry(data.length);
+
     var rect = sel.selectAll(".node")
         .data(nodes(quadtree))
         .enter()
         .append("rect")
-        .attr("class", "node")
+        .attr("class", function(d,i){
+            return "node " + "rect_" + i;
+        })
+        .attr("id", function(d, i){
+            return "rect_" + i;
+        })
         .attr("x", function(d) { return d.x1; })
         .attr("y", function(d) { return d.y1; })
         .attr("width", function(d) { return d.x2 - d.x1; })
         .attr("height", function(d) { return d.y2 - d.y1; })
         .style("fill", function(d, i){ return colorInterpolate(entropyScale(entropyArray[i]));})
-        .style("opacity", 0.3);
+        .style("opacity", 0.3)
+        .on("click", function(d, i){
+            if(areaClickedAryy[i] % 2 == 0 ){
+                d3.select("#radarStroke_" + i)
+                    .transition().duration(10)
+                    .style("opacity", 0.8);
+                d3.selectAll(".radarCircle_" + i)
+                    .transition().duration(10)
+                    .style("fill-opacity", 0.8);
+
+            }else if(areaClickedAryy[i] % 2 == 1){
+                d3.select("#radarStroke_" + i)
+                    .transition().duration(10)
+                    .style("opacity", 0);
+                d3.selectAll(".radarCircle_" + i)
+                    .transition().duration(10)
+                    .style("fill-opacity", 0);
+            }
+            areaClickedAryy[i]++;
+
+            //显示词云视图
+            showWordCloud(i);
+        });
 
     var point = sel.selectAll(".point")
         .data(data)
@@ -167,20 +204,21 @@ function saveRegins(nodes, proj){
             leafNodes.push(leafNode);
         }
     }
-    data.nodes = JSON.stringify(leafNodes);
 
-        $.ajax({
-            url: "SaveRegionServlet",
-            type: "post",
-            data:data,
-            dataType: "json",
-            success: function(data){
-               console.log("sucess");
-            },
-            error: function(XMLHttpRequest , textStatus, errorThrown){
-                // console.log("textStatus : " + textStatus);
-            }
-        });
+    // data.nodes = JSON.stringify(leafNodes);
+    //
+    //     $.ajax({
+    //         url: "SaveRegionServlet",
+    //         type: "post",
+    //         data:data,
+    //         dataType: "json",
+    //         success: function(data){
+    //            console.log("sucess");
+    //         },
+    //         error: function(XMLHttpRequest , textStatus, errorThrown){
+    //             // console.log("textStatus : " + textStatus);
+    //         }
+    //     });
 }
 
 
